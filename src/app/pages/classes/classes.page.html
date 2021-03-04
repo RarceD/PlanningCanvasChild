@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>classes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ul *ngFor="let c of classes; index as i; ">
+    <ion-card>
+      <img src="{{c.image}}" height="220" width="200" />
+      <ion-card-header>
+        <ion-item href="#" class="ion-activated">
+          <ion-card-subtitle>Clase: </ion-card-subtitle>
+          <ion-card-title>{{c.name}}</ion-card-title>
+        </ion-item>
+      </ion-card-header>
+      <ion-card-content> </ion-card-content>
+    </ion-card>
+  </ul>
+  <ion-card>
+    <ion-item href="#">
+      <ion-icon name="wine" slot="start"></ion-icon>
+      <ion-label>Card Link Item 2</ion-label>
+    </ion-item>
+
+    <ion-item class="ion-activated">
+      <ion-icon name="warning" slot="start"></ion-icon>
+      <ion-label>Card Button Item 1 activated</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="walk" slot="start"></ion-icon>
+      <ion-label>Card Button Item 2</ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>
