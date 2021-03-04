@@ -3,4 +3,5 @@ export interface Classes {
   name: string,
   password: string,
   image: string,
+  icon: string
 }

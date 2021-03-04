@@ -10,15 +10,38 @@ export class ClassesPage implements OnInit {
     [
       {
         id: 1,
-        name: "2ºC",
+        name: " 2ºA",
         password: "secretitos",
-        image: "../../assets/images/test.jpg"
+        image: "../../assets/images/test.jpg",
+        icon: "brush"
       },
       {
         id: 2,
-        name: "Juan Carlos",
+        name: " 5ºB",
         password: "secretitos",
-        image: "../../assets/images/test.jpg"
+        image: "../../assets/images/test.jpg",
+        icon: "aperture"
+      },
+      {
+        id: 3,
+        name: " 1ºB",
+        password: "secretitos",
+        image: "../../assets/images/test.jpg",
+        icon: "paper-plane"
+      },
+      {
+        id: 4,
+        name: " 1ºB",
+        password: "secretitos",
+        image: "../../assets/images/test.jpg",
+        icon: "color-palette"
+      },
+      {
+        id: 4,
+        name: " 4ºB",
+        password: "secretitos",
+        image: "../../assets/images/test.jpg",
+        icon: "color-fill"
       },
     ];
   constructor() { }
