@@ -15,6 +15,14 @@ const routes: Routes = [
     path: 'class-verified',
     loadChildren: () => import('./modal/class-verified/class-verified.module').then( m => m.ClassVerifiedPageModule)
   },
+  {
+    path: 'groups',
+    loadChildren: () => import('./pages/groups/groups.module').then( m => m.GroupsPageModule)
+  },
+  {
+    path: 'schedule',
+    loadChildren: () => import('./pages/schedule/schedule.module').then( m => m.SchedulePageModule)
+  },
 ];
 
 @NgModule({

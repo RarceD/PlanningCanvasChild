@@ -28,6 +28,5 @@ export class ClassVerifiedPage implements OnInit {
     else
       console.log("Fail the pass");
     this.dismiss();
-
   }
 }
