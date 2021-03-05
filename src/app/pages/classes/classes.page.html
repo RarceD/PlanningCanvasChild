@@ -9,26 +9,30 @@
     <!-- fab placed in the center of the content with a list on each side -->
     <ion-fab vertical="top" horizontal="end" slot="fixed">
       <ion-fab-button>
-        <ion-icon name="person-add"></ion-icon>
+        <ion-icon name="add"></ion-icon>
       </ion-fab-button>
       <ion-fab-list side="bottom">
-        <ion-fab-button color="danger"><ion-icon name="logo-twitter"></ion-icon></ion-fab-button>
-        <ion-fab-button><ion-icon name="logo-twitter"></ion-icon></ion-fab-button>
+        <ion-fab-button color="success"><ion-icon name="person-add"></ion-icon></ion-fab-button>
+        <ion-fab-button color="danger"><ion-icon name="person-remove-outline"></ion-icon></ion-fab-button>
       </ion-fab-list>
     </ion-fab>
-
   <ion-row>
     <ul *ngFor="let c of classes; index as i;">
       <ion-col>
         <ion-card>
-          <img src="{{c.image}}" height="260" width="260" />
+          <img src="{{c.image}}" height="200" width="180" />
           <ion-item href="#" class="ion-activated">
-            <ion-card-title>{{c.name}}</ion-card-title>
+            <ion-card-title>
+              {{c.name}}
+            </ion-card-title>
             <ion-icon name="{{c.icon}}" slot="start"></ion-icon>
           </ion-item>
           <ion-card-content>
-            <ion-item href="#" class="ion-activated">
-              <ion-label> hola </ion-label>
+          <ion-item>
+            <ion-button color="medium" (click)="selectClass(c)">
+              <ion-icon name="search-outline"></ion-icon>
+              Open group
+            </ion-button>
             </ion-item>
           </ion-card-content>
         </ion-card>

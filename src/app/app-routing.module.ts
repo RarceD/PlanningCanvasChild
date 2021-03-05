@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'classes',
     loadChildren: () => import('./pages/classes/classes.module').then( m => m.ClassesPageModule)
   },
+  {
+    path: 'class-verified',
+    loadChildren: () => import('./modal/class-verified/class-verified.module').then( m => m.ClassVerifiedPageModule)
+  },
 ];
 
 @NgModule({
