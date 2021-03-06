@@ -28,12 +28,28 @@ export class SchedulePage implements OnInit {
         text: "TASK SCHEDULE",
         start: 0,
         associatedTasks: [],
-        expanded: true
+        expanded: false
       },
       {
         text: "Main task 1",
         start: 2,
-        associatedTasks: [],
+        associatedTasks: [{
+          text: "Second Task 3.1",
+          color: "success",
+          deadline: {
+            "lower": 12,
+            "upper": 50
+          }
+
+        },
+        {
+          text: "Second Task 3.2",
+          color: "tertiary",
+          deadline: {
+            "lower": 12,
+            "upper": 50
+          }
+        }],
         expanded: true
       },
       {
@@ -43,6 +59,11 @@ export class SchedulePage implements OnInit {
           [
             {
               text: "Second Task 2.1",
+              color: "secondary",
+              deadline: {
+                upper:4,
+                lower:18
+              }
             }
           ],
         expanded: true
@@ -54,12 +75,28 @@ export class SchedulePage implements OnInit {
           [
             {
               text: "Second Task 3.1",
+              color: "danger",
+              deadline: {
+                "lower": 12,
+                "upper": 50
+              }
+
             },
             {
               text: "Second Task 3.2",
+              color: "primary",
+              deadline: {
+                "lower": 12,
+                "upper": 50
+              }
             },
             {
               text: "Second Task 3.3",
+              color: "warning",
+              deadline: {
+                "lower": 12,
+                "upper": 50
+              }
             }
           ],
         expanded: true
@@ -86,6 +123,10 @@ export class SchedulePage implements OnInit {
   ]
   ngOnInit(): void {
     console.log("ok")
+    // this.tasks[2].associatedTasks[1].deadline=  {
+    //   upper:4,
+    //   lower:18
+    // }
   }
   showMoreTasks(task: TasksMain) {
     console.log(task);
@@ -93,6 +134,9 @@ export class SchedulePage implements OnInit {
       task.expanded = false;
     else
       task.expanded = true;
+  }
+  editTask(secondTask){
+
   }
 
 }

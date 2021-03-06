@@ -30,7 +30,7 @@
             <ion-button *ngIf="i>0" color="light" (click)="showMoreTasks(t)">
               <ion-icon name="calendar"></ion-icon>
             </ion-button>
-            <ion-label> {{t.text}} </ion-label>
+            <ion-label color="dark"><b>{{t.text}}</b> </ion-label>
           </ion-col>
           <ul *ngFor="let c of columns; index as i;">
             <div *ngIf="t.start>i; else notContent">
@@ -51,12 +51,53 @@
               class="ion-align-items-center"
               style="border-bottom: groove"
             >
-              <ion-col size="3" >
-                <ion-button  color="light" (click)="showMoreTasks(t)">
-                  <ion-icon name="create-outline"></ion-icon>
+              <ion-col size="2">
+                <ion-label color="{{secondTask.color}}"
+                  >{{secondTask.text}}
+                </ion-label>
+                <ion-button
+                  size="small"
+                  color="light"
+                  (click)="editTask(secondTask)"
+                  shape="round"
+                >
+                  <ion-icon
+                    *ngIf="i%2==0; else notContent"
+                    name="checkmark-done-outline"
+                  ></ion-icon>
+                  <ng-template #notContent>
+                    <ion-icon name="close-outline"></ion-icon>
+                  </ng-template>
                 </ion-button>
-              <ion-label>{{secondTask.text}} </ion-label></ion-col>
-              <ul *ngFor="let c of columns; index as i;">
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-range
+                    min="0"
+                    max="100"
+                    step="10"
+                    dualKnobs="true"
+                    color="{{secondTask.color}}"
+                    [(ngModel)]="secondTask.deadline"
+                  >
+                    <ion-icon
+                      size="small"
+                      slot="start"
+                      name="return-down-forward-outline"
+                    ></ion-icon>
+                    <ion-icon
+                      size="small"
+                      slot="end"
+                      name="return-down-back-outline"
+                    ></ion-icon>
+                  </ion-range>
+                  <ion-button color="dark" (click)="editTask(secondTask)">
+                    <ion-icon name="create-outline"> </ion-icon>EDIT
+                  </ion-button>
+                </ion-item>
+              </ion-col>
+
+              <!-- <ul *ngFor="let c of columns; index as i;">
                 <div *ngIf="t.start>i; else other_content">
                   <ion-col
                     ><ion-item color="danger"> {{c}} </ion-item>
@@ -67,14 +108,14 @@
                     <ion-item color="primary">{{c}} </ion-item>
                   </ion-col>
                 </ng-template>
-              </ul>
+              </ul> -->
             </ion-row>
           </ul>
         </div>
       </ul>
     </ion-grid>
   </ion-card>
-  <ion-card>
+  <ion-card *ngIf="tasks[1].expanded || tasks[3].expanded || tasks[2].expanded">
     <ion-card-header> Cheat sheet of task management </ion-card-header>
     <ion-card-content>
       <ion-list>
