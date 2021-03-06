@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Create new class in school</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-input [(ngModel)]="className" placeholder="Enter class name"></ion-input>
+  <ion-input [(ngModel)]="imageUrl" placeholder="Enter image url"></ion-input>
+  <ion-button color="success" (click)="dismiss()">Save new class</ion-button>
+</ion-content>

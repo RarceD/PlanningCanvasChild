@@ -12,8 +12,8 @@
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
       <ion-fab-list side="bottom">
-        <ion-fab-button color="success"><ion-icon name="person-add"></ion-icon></ion-fab-button>
-        <ion-fab-button color="danger"><ion-icon name="person-remove-outline"></ion-icon></ion-fab-button>
+        <ion-fab-button (click)="createClass()"color="success"><ion-icon name="person-add"></ion-icon></ion-fab-button>
+        <ion-fab-button (click)="removeClass()"color="danger"><ion-icon name="person-remove-outline"></ion-icon></ion-fab-button>
       </ion-fab-list>
     </ion-fab>
   <ion-row>
@@ -33,7 +33,13 @@
               <ion-icon name="search-outline"></ion-icon>
               Open Class
             </ion-button>
-            </ion-item>
+          </ion-item>
+          <ion-item *ngIf="showRemoveButton">
+            <ion-button  color="danger" (click)="modifiedClasses(i, true)">
+              <ion-icon name="search-outline"></ion-icon>
+              Delete
+            </ion-button>
+          </ion-item>
           </ion-card-content>
         </ion-card>
       </ion-col>

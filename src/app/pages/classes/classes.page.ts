@@ -1,3 +1,4 @@
+import { CreateClassPage } from './../../modal/create-class/create-class.page';
 import { ClassVerifiedPage } from './../../modal/class-verified/class-verified.page';
 import { Classes } from './../../interfaces/classes';
 import { Component, OnInit } from '@angular/core';
@@ -54,7 +55,7 @@ export class ClassesPage implements OnInit {
         icon: "color-fill"
       },
     ];
-
+  public showRemoveButton: boolean = false;
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
@@ -68,11 +69,51 @@ export class ClassesPage implements OnInit {
   async presentModal(pass) {
     const modal = await this.modalController.create({
       component: ClassVerifiedPage,
-      cssClass: 'my-custom-class' ,
-      componentProps: {
-        'truePassword': pass    }
+      cssClass: 'my-custom-class',
+      componentProps: { 'truePassword': pass }
     });
     return await modal.present();
   }
+  async createClass() {
+    const modal = await this.modalController.create({
+      component: CreateClassPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        'nop': 1
+      }
+    });
+    modal.onDidDismiss()
+      .then((data) => {
+        // const user = data['data']; // Here's your selected user!
+        this.classes.push(
+          {
+            id: 1,
+            name: data['data'],
+            password: "a",
+            image: "../../assets/images/class_e.svg",
+            icon: "brush"
+          });
+      });
+    return await modal.present();
+  }
+  removeClass() {
+    this.showRemoveButton = true;
+  }
+
+  modifiedClasses(item, deleteItem) {
+    if (deleteItem) {
+      this.classes = this.classes.filter(obj => obj !== this.classes[item]);
+      this.showRemoveButton = false;
+    }
+    else {
+
+    }
+
+  }
+
 
 }
+
+
+
+

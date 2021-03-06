@@ -25,7 +25,7 @@
         </ul>
       </ion-row> -->
       <ul *ngFor="let t of tasks; index as i;">
-        <ion-row class="ion-align-items-center" style="border-bottom: groove">
+        <ion-row class="ion-align-items-center" style="border-top: groove">
           <ion-col size="3">
             <ion-button *ngIf="i>0" color="light" (click)="showMoreTasks(t)">
               <ion-icon name="calendar"></ion-icon>
@@ -47,9 +47,9 @@
         </ion-row>
         <div *ngIf="t.expanded">
           <ul *ngFor="let secondTask of t.associatedTasks; index as i;">
+            <!-- style="border-bottom: groove" -->
             <ion-row
               class="ion-align-items-center"
-              style="border-bottom: groove"
             >
               <ion-col size="2">
                 <ion-label color="{{secondTask.color}}"
@@ -91,7 +91,7 @@
                       name="return-down-back-outline"
                     ></ion-icon>
                   </ion-range>
-                  <ion-button color="dark" (click)="editTask(secondTask)">
+                  <ion-button color="light" (click)="editTask(secondTask)">
                     <ion-icon name="create-outline"> </ion-icon>EDIT
                   </ion-button>
                 </ion-item>
