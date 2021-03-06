@@ -10,27 +10,24 @@
       <ion-icon name="arrow-back"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-<ion-row>
-
-  <ul *ngFor="let g of groups index as i;">
-    <ion-col>
-      <ion-card>
-        <img src="{{g.image}}" height="200" width="180" />
-        <ion-item href="#" class="ion-activated">
-          <ion-card-title>
-            Grupo {{g.name}}
-          </ion-card-title>
-        </ion-item>
-        <ion-card-content>
-          <ion-item>
-          <ion-button color="success" routerLink="/schedule">
-            <ion-icon name="search-outline"></ion-icon>
-            Open group
-          </ion-button>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-  </ion-col>
-</ul>
-</ion-row>
+  <ion-row>
+    <ul *ngFor="let g of groups index as i;">
+      <ion-col>
+        <ion-card>
+          <img src="{{g.image}}" height="200" width="180" />
+          <ion-item href="#" class="ion-activated">
+            <ion-card-title> Grupo {{g.name}} </ion-card-title>
+          </ion-item>
+          <ion-card-content>
+            <ion-item>
+              <ion-button color="success" routerLink="/schedule">
+                <ion-icon name="search-outline"></ion-icon>
+                Open group
+              </ion-button>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ul>
+  </ion-row>
 </ion-content>
