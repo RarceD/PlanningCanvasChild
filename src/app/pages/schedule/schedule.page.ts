@@ -25,17 +25,16 @@ export class SchedulePage implements OnInit {
   public tasks: TasksMain[] =
     [
       {
+        text: "TASK SCHEDULE",
+        start: 0,
+        associatedTasks: [],
+        expanded: true
+      },
+      {
         text: "Main task 1",
         start: 2,
-        associatedTasks:
-          [
-            {
-              text: "Second Task 1.1",
-            },
-            {
-              text: "Second Task 1.2",
-            }
-          ]
+        associatedTasks: [],
+        expanded: true
       },
       {
         text: "Main  2",
@@ -45,7 +44,8 @@ export class SchedulePage implements OnInit {
             {
               text: "Second Task 2.1",
             }
-          ]
+          ],
+        expanded: true
       },
       {
         text: "Main task 3 long",
@@ -61,37 +61,38 @@ export class SchedulePage implements OnInit {
             {
               text: "Second Task 3.3",
             }
-          ]
+          ],
+        expanded: true
       }
     ]
 
-    childrens: Children[] = [
-      {
-        name: "Tom",
-        color: "success"
-      },
-      {
-        name: "Oliver",
-        color: "danger"
-      },
-      {
-        name: "Rubén",
-        color: "primary"
-      },
-      {
-        name: "Erica",
-        color: "warning"
-      },
-    ]
+  childrens: Children[] = [
+    {
+      name: "Tom",
+      color: "success"
+    },
+    {
+      name: "Oliver",
+      color: "danger"
+    },
+    {
+      name: "Rubén",
+      color: "primary"
+    },
+    {
+      name: "Erica",
+      color: "warning"
+    },
+  ]
   ngOnInit(): void {
     console.log("ok")
   }
-  onSelectRed(row) {
-    console.log(row);
-  }
-
-  onSelectBlue(value) {
-    console.log(value);
+  showMoreTasks(task: TasksMain) {
+    console.log(task);
+    if (task.expanded)
+      task.expanded = false;
+    else
+      task.expanded = true;
   }
 
 }

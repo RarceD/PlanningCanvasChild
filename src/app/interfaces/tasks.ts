@@ -6,7 +6,8 @@ export interface TasksMain {
 
   end?: number,
   status?: TaskStatus,
-  associatedTasks?: TaskSecond[]
+  associatedTasks?: TaskSecond[],
+  expanded?: boolean
 
 }
 

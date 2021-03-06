@@ -9,35 +9,68 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/groups">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <ion-card>
     <ion-grid>
-      <ion-row>
-        <ion-col size="3"> Tasks in Schedule </ion-col>
+      <!-- <ion-row style="border-bottom: groove">
+        <ion-col size="3"> ><ion-button> Tasks in Schedule </ion-button></ion-col>
         <ul *ngFor="let c of columns">
           <ion-col size="1">
             <ion-item color="medium">{{c}}</ion-item>
           </ion-col>
         </ul>
-      </ion-row>
-      <ul *ngFor="let t of tasks">
-        <ion-row>
-          <ion-col size="3"> {{t.text}} </ion-col>
+      </ion-row> -->
+      <ul *ngFor="let t of tasks; index as i;">
+        <ion-row class="ion-align-items-center" style="border-bottom: groove">
+          <ion-col size="3">
+            <ion-button *ngIf="i>0" color="light" (click)="showMoreTasks(t)">
+              <ion-icon name="calendar"></ion-icon>
+            </ion-button>
+            <ion-label> {{t.text}} </ion-label>
+          </ion-col>
           <ul *ngFor="let c of columns; index as i;">
-            <div *ngIf="t.start>i; else other_content">
+            <div *ngIf="t.start>i; else notContent">
               <ion-col size="1"
-                ><ion-item color="danger"> {{c}} </ion-item>
+                ><ion-item color="light"> {{c}} </ion-item>
               </ion-col>
             </div>
-            <ng-template #other_content>
+            <ng-template #notContent>
               <ion-col size="1">
-                <ion-item color="primary">{{c}} </ion-item>
+                <ion-item color="medium">{{c}} </ion-item>
               </ion-col>
             </ng-template>
           </ul>
         </ion-row>
-        <ul *ngFor="let secondTask of t.associatedTasks; index as i;">
-          <ion-row> {{secondTask.text}} </ion-row>
-        </ul>
+        <div *ngIf="t.expanded">
+          <ul *ngFor="let secondTask of t.associatedTasks; index as i;">
+            <ion-row
+              class="ion-align-items-center"
+              style="border-bottom: groove"
+            >
+              <ion-col size="3" >
+                <ion-button  color="light" (click)="showMoreTasks(t)">
+                  <ion-icon name="create-outline"></ion-icon>
+                </ion-button>
+              <ion-label>{{secondTask.text}} </ion-label></ion-col>
+              <ul *ngFor="let c of columns; index as i;">
+                <div *ngIf="t.start>i; else other_content">
+                  <ion-col
+                    ><ion-item color="danger"> {{c}} </ion-item>
+                  </ion-col>
+                </div>
+                <ng-template #other_content>
+                  <ion-col>
+                    <ion-item color="primary">{{c}} </ion-item>
+                  </ion-col>
+                </ng-template>
+              </ul>
+            </ion-row>
+          </ul>
+        </div>
       </ul>
     </ion-grid>
   </ion-card>
