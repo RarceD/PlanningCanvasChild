@@ -1,3 +1,4 @@
+import { Classes } from './../../interfaces/classes';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
@@ -8,16 +9,27 @@ import { ModalController } from '@ionic/angular';
 })
 export class CreateClassPage implements OnInit {
 
-  public className: string = "";
-  public imageUrl: string = "";
+  public class: Classes =
+    {
+      icon: "",
+      id: 0,
+      image: "",
+      name: "",
+      password: "",
+    }
 
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
   }
 
-  dismiss() {
-    this.modalController.dismiss("gato");
+  dismiss(action) {
+    if (action){
+      this.class.image = "../../assets/images/class_e.svg";
+      this.class.icon = "add";
+      this.modalController.dismiss(this.class);
+    }
+    this.modalController.dismiss();
   }
 
 }

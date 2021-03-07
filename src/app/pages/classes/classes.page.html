@@ -20,20 +20,15 @@
     <ul *ngFor="let c of classes; index as i;">
       <ion-col>
         <ion-card>
-          <img src="{{c.image}}" height="200" width="180" />
-          <ion-item href="#" class="ion-activated">
+          <img (click)="selectClass(c)" src="{{c.image}}" height="200" width="180" />
+          <ion-item class="ion-activated">
             <ion-card-title>
               {{c.name}}
             </ion-card-title>
             <ion-icon name="{{c.icon}}" slot="start"></ion-icon>
           </ion-item>
           <ion-card-content>
-          <ion-item>
-            <ion-button color="medium" (click)="selectClass(c)">
-              <ion-icon name="search-outline"></ion-icon>
-              Open Class
-            </ion-button>
-          </ion-item>
+
           <ion-item *ngIf="showRemoveButton">
             <ion-button  color="danger" (click)="modifiedClasses(i, true)">
               <ion-icon name="search-outline"></ion-icon>

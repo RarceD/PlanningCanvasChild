@@ -5,7 +5,37 @@
 </ion-header>
 
 <ion-content>
-  <ion-input [(ngModel)]="className" placeholder="Enter class name"></ion-input>
-  <ion-input [(ngModel)]="imageUrl" placeholder="Enter image url"></ion-input>
-  <ion-button color="success" (click)="dismiss()">Save new class</ion-button>
+  <ion-item>
+    <ion-label> Introduce the name and pass: </ion-label>
+  </ion-item>
+  <ion-input
+    [(ngModel)]="class.name"
+    placeholder="Enter class name"
+  ></ion-input>
+  <ion-input [(ngModel)]="class.password" placeholder="Password"></ion-input>
+  <ion-item>
+    <ion-label> Introduce the image and icon from ionic: </ion-label>
+  </ion-item>
+  <ion-input
+    [(ngModel)]="class.image"
+    placeholder="Enter image url"
+  ></ion-input>
+  <ion-input
+    [(ngModel)]="class.icon"
+    placeholder="Enter icon to show"
+  ></ion-input>
+  <section>
+    <ion-row>
+      <ion-col>
+        <ion-button   expand="full" color="success" (click)="dismiss(true)"
+          >Save new class</ion-button
+        >
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full"  color="danger" (click)="dismiss(false)"
+          >Close editing </ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </section>
 </ion-content>

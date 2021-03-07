@@ -84,15 +84,9 @@ export class ClassesPage implements OnInit {
     });
     modal.onDidDismiss()
       .then((data) => {
-        // const user = data['data']; // Here's your selected user!
-        this.classes.push(
-          {
-            id: 1,
-            name: data['data'],
-            password: "a",
-            image: "../../assets/images/class_e.svg",
-            icon: "brush"
-          });
+        console.log(data['data']);
+        if (data['data'] != null)
+          this.classes.push(data['data']);
       });
     return await modal.present();
   }
