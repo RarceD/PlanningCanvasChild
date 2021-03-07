@@ -56,6 +56,7 @@ export class ClassesPage implements OnInit {
       },
     ];
   public showRemoveButton: boolean = false;
+  public showEditButton: boolean = false;
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
@@ -90,20 +91,49 @@ export class ClassesPage implements OnInit {
       });
     return await modal.present();
   }
-  removeClass() {
-    this.showRemoveButton = true;
+  removeClass(deleteClass) {
+    if (deleteClass)
+      this.showRemoveButton = true;
+    else
+      this.showEditButton = true;
   }
 
-  modifiedClasses(item, deleteItem) {
+  async modifiedClasses(item, deleteItem) {
+    this.showEditButton = false;
+    this.showRemoveButton = false;
     if (deleteItem) {
       this.classes = this.classes.filter(obj => obj !== this.classes[item]);
-      this.showRemoveButton = false;
     }
     else {
+      const modal = await this.modalController.create({
+        component: CreateClassPage,
+        cssClass: 'my-custom-class',
+        componentProps: {
+          'classToEdit': this.classes[item]
+        }
+      });
+      modal.onDidDismiss()
+        .then((data) => {
+          console.log(data['data']);
+          if (data['data'] != null) {
+            let addMoreItem = true;
+            for (let c of this.classes) {
+              if (c.name == data['data'].name)
+              {
+                c = data['data']
+                addMoreItem = false;
+              }
+            }
+            if (addMoreItem)
+              this.classes.push(data['data']);
+          }
 
-    }
-
+        
+        });
+    return await modal.present();
   }
+
+}
 
 
 }

@@ -13,7 +13,8 @@
       </ion-fab-button>
       <ion-fab-list side="bottom">
         <ion-fab-button (click)="createClass()"color="success"><ion-icon name="person-add"></ion-icon></ion-fab-button>
-        <ion-fab-button (click)="removeClass()"color="danger"><ion-icon name="person-remove-outline"></ion-icon></ion-fab-button>
+        <ion-fab-button (click)="removeClass(true)"color="danger"><ion-icon name="person-remove-outline"></ion-icon></ion-fab-button>
+        <ion-fab-button (click)="removeClass(false)"color="warning"><ion-icon name="brush-outline"></ion-icon></ion-fab-button>
       </ion-fab-list>
     </ion-fab>
   <ion-row>
@@ -33,6 +34,12 @@
             <ion-button  color="danger" (click)="modifiedClasses(i, true)">
               <ion-icon name="search-outline"></ion-icon>
               Delete
+            </ion-button>
+          </ion-item>
+          <ion-item *ngIf="showEditButton">
+            <ion-button  color="warning" (click)="modifiedClasses(i, false)">
+              <ion-icon name="search-outline"></ion-icon>
+              Edit Class
             </ion-button>
           </ion-item>
           </ion-card-content>

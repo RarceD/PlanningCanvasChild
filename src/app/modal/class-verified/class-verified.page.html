@@ -4,12 +4,22 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="center">
-  <img src="{{imageSecure}}" height="200" width="280" />
+<ion-content>
+  <ion-card class="centerLogin">
+    <img class="centerLogin" src="{{imageSecure}}" height="200" width="200" />
+  </ion-card>
   <ion-input [(ngModel)]="userPass" placeholder="Enter Password"></ion-input>
+<ion-row>
 
-  <ion-button  (click)="checkSubmission()" expand="full" routerLink="/groups" >Submit Password</ion-button>
-  <ion-button (click)="dismiss()" expand="full" color="danger"
+  <ion-col>
+    <ion-button (click)="checkSubmission()" expand="full" 
+    >Submit Password</ion-button
+    >
+  </ion-col>
+  <ion-col>
+    <ion-button (click)="dismiss()" expand="full" color="danger"
     >Exit submission</ion-button
-  >
+    >
+  </ion-col>
+</ion-row>
 </ion-content>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ModalController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-class-verified',
@@ -9,7 +10,10 @@ import { ModalController } from '@ionic/angular';
 export class ClassVerifiedPage implements OnInit {
   @Input() truePassword: string;
   public userPass: string;
-  constructor(public modalController: ModalController) { }
+  constructor(
+    public modalController: ModalController,
+    private router: Router,
+    public toastController: ToastController) { }
 
   ngOnInit() {
   }
@@ -23,10 +27,25 @@ export class ClassVerifiedPage implements OnInit {
   }
   checkSubmission() {
     console.log(this.userPass, this.truePassword);
-    if (this.userPass == this.truePassword)
+    if (this.userPass == this.truePassword){
+
       console.log("Match the pass");
+      this.router.navigate(['/groups']);
+    }
     else
+    {
+      this.presentToast();
+    }
       console.log("Fail the pass");
     this.dismiss();
+  }
+  async presentToast() {
+    const toast = await this.toastController.create({
+      header: 'WRONG PASSWORDS',
+      message: 'Please try one more time',
+      position: 'top',
+      duration: 2000
+    });
+    toast.present();
   }
 }
