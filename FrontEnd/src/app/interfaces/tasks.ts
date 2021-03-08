@@ -10,10 +10,11 @@ export interface TasksMain {
 }
 
 export interface TaskSecond {
+  start: number,
   text: string
   childAsociated?: string,
   color?: string,
-    deadline?: Object
+  deadline?: Object
 }
 
 export interface Children{
