@@ -10,7 +10,7 @@ export interface TasksMain {
 }
 
 export interface TaskSecond {
-  start: number,
+  start?: number,
   text: string
   childAsociated?: string,
   color?: string,

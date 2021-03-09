@@ -31,7 +31,7 @@ export class SchedulePage implements OnInit {
         expanded: false
       },
       {
-        text: "Main task 1",
+        text: "Tarea principal 1",
         start: 2,
         associatedTasks: [{
           text: "Second Task 3.1",
@@ -50,10 +50,10 @@ export class SchedulePage implements OnInit {
             "upper": 50
           }
         }],
-        expanded: true
+        expanded: false
       },
       {
-        text: "Main  2",
+        text: "Tarea secundaria 2",
         start: 4,
         associatedTasks:
           [
@@ -66,10 +66,10 @@ export class SchedulePage implements OnInit {
               }
             }
           ],
-        expanded: true
+        expanded: false
       },
       {
-        text: "Main task 3 long",
+        text: "Tarea tercera",
         start: 7,
         associatedTasks:
           [
@@ -99,7 +99,7 @@ export class SchedulePage implements OnInit {
               }
             }
           ],
-        expanded: true
+        expanded: false
       }
     ]
 

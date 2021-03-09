@@ -9,8 +9,8 @@ class MainTask:
         self.end = ""
     def get_json_format(self, group_member):    		
         #convert to JSON string
-        jsonStr = json.dumps(group_member.__dict__)
-        return (jsonStr)
+        # jsonStr = json.dumps(group_member.__dict__)
+        return ("jsonStr")
 
 class SecondaryTask:
     def __init__(self):
@@ -28,8 +28,8 @@ class Children:
         self.color=""
 
 """
-"""
 #create object and test the conversion:
 primary_tasks = MainTask()
 primary_tasks.associated_tasks.text = "Secondary task"
 print(primary_tasks.get_json_format(primary_tasks))
+"""
