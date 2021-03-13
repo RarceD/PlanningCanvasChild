@@ -1,3 +1,4 @@
+import { RequestsService } from './../../services/requests.service';
 import { CreateClassPage } from './../../modal/create-class/create-class.page';
 import { ClassVerifiedPage } from './../../modal/class-verified/class-verified.page';
 import { Classes } from './../../interfaces/classes';
@@ -57,9 +58,24 @@ export class ClassesPage implements OnInit {
     ];
   public showRemoveButton: boolean = false;
   public showEditButton: boolean = false;
-  constructor(public modalController: ModalController) { }
+  constructor(
+    public modalController: ModalController,
+    private requestService: RequestsService
+  ) { }
 
   ngOnInit() {
+    this.obteidClassesBackend();
+  }
+  obteidClassesBackend() {
+    console.log("in")
+    this.requestService.getClass().subscribe(
+      x => {
+        console.log(x)
+      },
+      err => console.error('Observer got an error: ' + err),
+      () => console.log('Observer got a complete notification')
+    )
+
   }
 
   selectClass(classItem: Classes) {
@@ -118,8 +134,7 @@ export class ClassesPage implements OnInit {
           if (data['data'] != null) {
             let addMoreItem = true;
             for (let c of this.classes) {
-              if (c.name == data['data'].name)
-              {
+              if (c.name == data['data'].name) {
                 c = data['data']
                 addMoreItem = false;
               }
@@ -128,12 +143,12 @@ export class ClassesPage implements OnInit {
               this.classes.push(data['data']);
           }
 
-        
-        });
-    return await modal.present();
-  }
 
-}
+        });
+      return await modal.present();
+    }
+
+  }
 
 
 }

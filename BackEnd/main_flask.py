@@ -2,19 +2,31 @@ from flask import Flask
 from models.ChildClass import ChildClass
 from models.ChildGroup import ChildGroup
 from models.ChildTask import MainTask
-
+from flask_cors import CORS
+from dB.db_interactions import Db_childen
+from flask import jsonify
+from flask import json
 # Create the api:
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return 'it fucking works!!'
 
 @app.route('/api/classes')
 def classes_endpoint():
-    child_class = ChildClass(1)
-    child_class.name="Test Class" 
-    return child_class.get_json_format(child_class)
+    # child_class = ChildClass(1)
+    # child_class.name="Test Class" 
+    # return child_class.get_json_format(child_class)
+    returned_classes = ""
+    db = Db_childen("dB/dbchild")
+    classes_db = db.get_class()
+    for c in classes_db:
+        returned_classes+=c.get_json_format(c)
+    # print(returned_classes)
+    # return returned_classes
+    return returned_classes
 
 @app.route('/api/groups')
 def groups_endpoint():
