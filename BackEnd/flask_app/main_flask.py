@@ -22,11 +22,13 @@ def classes_endpoint():
     returned_classes = ""
     db = Db_childen("dB/dbchild")
     classes_db = db.get_class()
-    for c in classes_db:
-        returned_classes+=c.get_json_format(c)
-    # print(returned_classes)
+    # for c in classes_db:
+    #     returned_classes+=c.get_json_format(c)
+    from json import dumps as jsonstring
+    # print(jsonstring(classes_db.__dict__))
     # return returned_classes
-    return returned_classes
+    # print(jsonstring(classes_db))
+    return "classes_db"
 
 @app.route('/api/groups')
 def groups_endpoint():

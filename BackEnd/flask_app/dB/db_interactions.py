@@ -31,6 +31,7 @@ class Db_childen (object):
         cur = self.conn.cursor()
         cur.execute(sql_text)
         self.conn.commit()
+        
     def get_class(self): 
         sql_text = """SELECT * FROM classes"""
         cur = self.conn.cursor()
@@ -45,8 +46,9 @@ class Db_childen (object):
             class_bd.password = c[2]
             class_bd.image = c[3]
             class_bd.icon =  c[4]
-            returned_classes.append(class_bd)
-        return returned_classes
+            returned_classes.append(class_bd.get_json_format(class_bd))
+        print(returned_classes)
+        return classes_onteined
 
 
 # db_path = "dbchild"

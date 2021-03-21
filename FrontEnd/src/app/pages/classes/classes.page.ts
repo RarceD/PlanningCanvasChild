@@ -66,11 +66,12 @@ export class ClassesPage implements OnInit {
   ngOnInit() {
     this.obteidClassesBackend();
   }
+
   obteidClassesBackend() {
     console.log("in")
     this.requestService.getClass().subscribe(
-      x => {
-        console.log(x)
+      data => {
+        console.log(data)
       },
       err => console.error('Observer got an error: ' + err),
       () => console.log('Observer got a complete notification')
