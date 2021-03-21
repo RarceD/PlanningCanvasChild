@@ -16,13 +16,13 @@ namespace netcoreBackend.Controllers
         [HttpGet("")]
         public ActionResult<string> GetAllGroups()
         {
-            List<ChildClass> array_classes = new List<ChildClass>();
+            List<Class> array_classes = new List<Class>();
             for (int i = 0; i<10; i++)
             {
-                var a = new ChildClass();
+                var a = new Class();
                 a.icon = "hola";
                 a.id = i;
-                a.name = "name the mierda";
+                a.name = "name";
                 a.password = "passwords";
                 array_classes.Add(a);
             }

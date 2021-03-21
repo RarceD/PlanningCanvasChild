@@ -1,6 +1,7 @@
 
 
 export interface TasksMain {
+  id: string,
   text: string,
   start: number,
   end?: number,
