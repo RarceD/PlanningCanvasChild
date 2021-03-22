@@ -42,6 +42,8 @@ namespace netcoreBackend
 
             app.UseAuthorization();
 
+            app.UseCors("PermitirTodo");
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
