@@ -25,12 +25,15 @@ export class SchedulePage implements OnInit {
   public tasks: TasksMain[] =
     [
       {
+        id:1,
         text: "TASK SCHEDULE",
         start: 0,
         associatedTasks: [],
         expanded: false
       },
       {
+        id:1,
+
         text: "Tarea principal 1",
         start: 2,
         associatedTasks: [{
@@ -53,6 +56,8 @@ export class SchedulePage implements OnInit {
         expanded: false
       },
       {
+        id:1,
+
         text: "Tarea secundaria 2",
         start: 4,
         associatedTasks:
@@ -69,6 +74,8 @@ export class SchedulePage implements OnInit {
         expanded: false
       },
       {
+        id:1,
+
         text: "Tarea tercera",
         start: 7,
         associatedTasks:

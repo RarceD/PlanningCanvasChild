@@ -32,18 +32,19 @@
             </ion-button>
             <ion-label color="dark"><b>{{t.text}}</b> </ion-label>
           </ion-col>
+
           <ul *ngFor="let c of columns; index as i;">
             <div *ngIf="t.start>i; else notContent">
-              <ion-col size="1"
-                ><ion-item color="light"> {{c}} </ion-item>
+              <ion-col col-6><ion-item color="light" > {{c}} </ion-item>
               </ion-col>
             </div>
             <ng-template #notContent>
-              <ion-col size="1">
+              <ion-col col-1>
                 <ion-item color="medium">{{c}} </ion-item>
               </ion-col>
             </ng-template>
           </ul>
+
         </ion-row>
         <div *ngIf="t.expanded">
           <ul *ngFor="let secondTask of t.associatedTasks; index as i;">
