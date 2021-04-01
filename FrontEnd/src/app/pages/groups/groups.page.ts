@@ -15,7 +15,7 @@ export class GroupsPage implements OnInit {
     },
     {
       id: 2,
-      name: "Negros",
+      name: "Violetas",
       image: "../../assets/images/group_2.svg",
     },
     {

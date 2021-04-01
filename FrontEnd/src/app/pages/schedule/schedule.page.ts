@@ -21,7 +21,7 @@ export class SchedulePage implements OnInit {
   constructor() {
   }
 
-  public columns: string[] = ["L", "M", "X", "J", "V", "L", "M", "X", "J", "V",]
+  public columns: string[] = ["L", "M", "X", "J", "V", "L", "M", "X", "J", "V"]
   public tasks: TasksMain[] =
     [
       {
@@ -34,23 +34,23 @@ export class SchedulePage implements OnInit {
       {
         id:1,
 
-        text: "Tarea principal 1",
+        text: "Main task 1",
         start: 2,
         associatedTasks: [{
-          text: "Second Task 3.1",
+          text: "Second Task 1.1",
           color: "success",
           deadline: {
-            "lower": 12,
+            "lower": 8,
             "upper": 50
           }
 
         },
         {
-          text: "Second Task 3.2",
+          text: "Second Task 1.2",
           color: "tertiary",
           deadline: {
-            "lower": 12,
-            "upper": 50
+            "lower": 60,
+            "upper": 90
           }
         }],
         expanded: false
@@ -58,7 +58,7 @@ export class SchedulePage implements OnInit {
       {
         id:1,
 
-        text: "Tarea secundaria 2",
+        text: "Main task 2",
         start: 4,
         associatedTasks:
           [
@@ -76,7 +76,7 @@ export class SchedulePage implements OnInit {
       {
         id:1,
 
-        text: "Tarea tercera",
+        text: "Main task 3",
         start: 7,
         associatedTasks:
           [
@@ -121,13 +121,18 @@ export class SchedulePage implements OnInit {
     },
     {
       name: "Rubén",
-      color: "primary"
+      color: "secondary"
     },
     {
       name: "Erica",
       color: "warning"
     },
+    {
+      name: "Pablito",
+      color: "tertiary"
+    },
   ]
+  //TODO: round the colors of the init() and end()
   ngOnInit(): void {
     console.log("ok")
     // this.tasks[2].associatedTasks[1].deadline=  {

@@ -15,8 +15,7 @@
     </ion-fab-button>
   </ion-fab>
   <ion-card>
-    <ion-grid>
-      <!-- <ion-row style="border-bottom: groove">
+    <!-- <ion-row style="border-bottom: groove">
         <ion-col size="3"> ><ion-button> Tasks in Schedule </ion-button></ion-col>
         <ul *ngFor="let c of columns">
           <ion-col size="1">
@@ -24,81 +23,79 @@
           </ion-col>
         </ul>
       </ion-row> -->
-      <ul *ngFor="let t of tasks; index as i;">
-        <ion-row class="ion-align-items-center" style="border-top: groove">
-          <ion-col size="3">
-            <ion-button *ngIf="i>0" color="light" (click)="showMoreTasks(t)">
-              <ion-icon name="calendar"></ion-icon>
-            </ion-button>
-            <ion-label color="dark"><b>{{t.text}}</b> </ion-label>
-          </ion-col>
+    <ul *ngFor="let t of tasks; index as i;">
+      <ion-row class="ion-align-items-center" style="border-top: groove">
+        <ion-col size="3">
+          <ion-button *ngIf="i>0" color="light" (click)="showMoreTasks(t)">
+            <ion-icon name="calendar"></ion-icon>
+          </ion-button>
+          <ion-label color="dark"><b>{{t.text}}</b> </ion-label>
+        </ion-col>
 
-          <ul *ngFor="let c of columns; index as i;">
-            <div *ngIf="t.start>i; else notContent">
-              <ion-col col-6><ion-item color="light" > {{c}} </ion-item>
-              </ion-col>
-            </div>
-            <ng-template #notContent>
-              <ion-col col-1>
-                <ion-item color="medium">{{c}} </ion-item>
-              </ion-col>
-            </ng-template>
-          </ul>
-
-        </ion-row>
-        <div *ngIf="t.expanded">
-          <ul *ngFor="let secondTask of t.associatedTasks; index as i;">
-            <!-- style="border-bottom: groove" -->
-            <ion-row
-              class="ion-align-items-center"
-            >
-              <ion-col size="2">
-                <ion-label color="{{secondTask.color}}"
-                  >{{secondTask.text}}
-                </ion-label>
-                <ion-button
-                  size="small"
-                  color="light"
-                  (click)="editTask(secondTask)"
-                  shape="round"
+        <ul *ngFor="let c of columns; index as i;">
+          <div *ngIf="i<5; else notContent">
+            <ion-col col-6><ion-item color=""> {{c}} </ion-item> </ion-col>
+          </div>
+          <ng-template #notContent>
+            <ion-col col-1>
+              <ion-item color="">
+                <p style="color: rgb(131, 202, 250)">{{c}}</p>
+              </ion-item>
+            </ion-col>
+          </ng-template>
+        </ul>
+      </ion-row>
+      <div *ngIf="t.expanded">
+        <ul *ngFor="let secondTask of t.associatedTasks; index as i;">
+          <!-- style="border-bottom: groove" -->
+          <ion-row class="ion-align-items-center">
+            <ion-col size="2">
+              <ion-label color="{{secondTask.color}}"
+                >{{secondTask.text}}
+              </ion-label>
+              <ion-button
+                size="small"
+                color="light"
+                (click)="editTask(secondTask)"
+                shape="round"
+              >
+                <ion-icon
+                  *ngIf="i%2==0; else notContent"
+                  name="checkmark-done-outline"
+                ></ion-icon>
+                <ng-template #notContent>
+                  <ion-icon name="close-outline"></ion-icon>
+                </ng-template>
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-range
+                  min="0"
+                  max="100"
+                  step="10"
+                  dualKnobs="true"
+                  color="{{secondTask.color}}"
+                  [(ngModel)]="secondTask.deadline"
                 >
                   <ion-icon
-                    *ngIf="i%2==0; else notContent"
-                    name="checkmark-done-outline"
+                    size="small"
+                    slot="start"
+                    name="return-down-forward-outline"
                   ></ion-icon>
-                  <ng-template #notContent>
-                    <ion-icon name="close-outline"></ion-icon>
-                  </ng-template>
+                  <ion-icon
+                    size="small"
+                    slot="end"
+                    name="return-down-back-outline"
+                  ></ion-icon>
+                </ion-range>
+                <ion-button color="light" (click)="editTask(secondTask)">
+                  <ion-icon name="create-outline"> </ion-icon>EDIT
                 </ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-item>
-                  <ion-range
-                    min="0"
-                    max="100"
-                    step="10"
-                    dualKnobs="true"
-                    color="{{secondTask.color}}"
-                    [(ngModel)]="secondTask.deadline"
-                  >
-                    <ion-icon
-                      size="small"
-                      slot="start"
-                      name="return-down-forward-outline"
-                    ></ion-icon>
-                    <ion-icon
-                      size="small"
-                      slot="end"
-                      name="return-down-back-outline"
-                    ></ion-icon>
-                  </ion-range>
-                  <ion-button color="light" (click)="editTask(secondTask)">
-                    <ion-icon name="create-outline"> </ion-icon>EDIT
-                  </ion-button>
-                </ion-item>
-              </ion-col>
+              </ion-item>
+            </ion-col>
 
-              <!-- <ul *ngFor="let c of columns; index as i;">
+            <!-- <ul *ngFor="let c of columns; index as i;">
                 <div *ngIf="t.start>i; else other_content">
                   <ion-col
                     ><ion-item color="danger"> {{c}} </ion-item>
@@ -110,28 +107,70 @@
                   </ion-col>
                 </ng-template>
               </ul> -->
-            </ion-row>
-          </ul>
-        </div>
-      </ul>
-    </ion-grid>
-  </ion-card>
-  <ion-card *ngIf="tasks[1].expanded || tasks[3].expanded || tasks[2].expanded">
-    <ion-card-header> Cheat sheet of task management </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ul *ngFor="let child of childrens ">
-          <ion-item>
-            <ion-label color="{{child.color}}">{{child.name}}</ion-label>
-            <ion-checkbox
-              color="{{child.color}}"
-              slot="start"
-              checked="true"
-            ></ion-checkbox>
-            <ion-button color="{{child.color}}">Color associated</ion-button>
-          </ion-item>
+          </ion-row>
         </ul>
-      </ion-list>
+      </div>
+    </ul>
+    <!-- </ion-grid> -->
+  </ion-card>
+  <h1></h1>
+  <h2></h2>
+  <h1></h1>
+  <ion-card>
+    <!-- <ion-card *ngIf="tasks[1].expanded || tasks[3].expanded || tasks[2].expanded"> -->
+    <ion-card-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <b> Your colors: </b>
+          </ion-col>
+          <b> Cheat sheet: </b>
+          <ion-col> </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-list>
+              <ul *ngFor="let child of childrens ">
+                <ion-item>
+                  <ion-label color="{{child.color}}">{{child.name}}</ion-label>
+                  <ion-checkbox
+                    color="{{child.color}}"
+                    slot="start"
+                    checked="true"
+                  ></ion-checkbox>
+                  <!-- <ion-button color="{{child.color}}">Color </ion-button> -->
+                </ion-item>
+              </ul>
+            </ion-list>
+          </ion-col>
+          <ion-col >
+            <ion-list>
+              <ion-item>
+                <ion-button color="light">
+                  <ion-icon name="checkmark-done-outline"></ion-icon
+                ></ion-button>
+                Tarea acabada
+              </ion-item>
+              <ion-item class="text-align: center">
+                <ion-button color="light">
+                  <ion-icon name="play-outline"></ion-icon
+                ></ion-button>
+                En curso
+              </ion-item>
+              <ion-item>
+                <ion-button color="light">
+                  <ion-icon name="close-outline"></ion-icon
+                ></ion-button>
+                Tarea sin empezar
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 

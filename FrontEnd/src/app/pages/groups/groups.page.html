@@ -1,6 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Select the group for this class:</ion-title>
+    <ion-title class="ion-text-center"
+      >Select the group for this class:</ion-title
+    >
   </ion-toolbar>
 </ion-header>
 
@@ -13,20 +15,31 @@
   <ion-row>
     <ul *ngFor="let g of groups index as i;">
       <ion-col>
-        <ion-card>
-          <img src="{{g.image}}" height="200" width="180" />
-          <ion-item href="#" class="ion-activated">
-            <ion-card-title> Grupo {{g.name}} </ion-card-title>
-          </ion-item>
-          <ion-card-content>
-            <ion-item>
-              <ion-button color="success" routerLink="/schedule">
-                <ion-icon name="search-outline"></ion-icon>
-                Open group
-              </ion-button>
+        <div
+          style="
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <ion-card routerLink="/schedule">
+            <img src="{{g.image}}" height="200" width="180" />
+            <ion-item class="ion-activated">
+              <ion-card-title class="ion-text-center">
+                Grupo {{g.name}}
+              </ion-card-title>
             </ion-item>
-          </ion-card-content>
-        </ion-card>
+            <ion-card-content>
+              <ion-item>
+                <ion-button color="success">
+                  <ion-icon name="game-controller-outline"></ion-icon>
+                  Let's go
+                </ion-button>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </div>
       </ion-col>
     </ul>
   </ion-row>

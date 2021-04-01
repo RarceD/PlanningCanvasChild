@@ -24,7 +24,7 @@ export interface Children{
 }
 
 enum TaskStatus {
-  "NOTSTARTED",
-  "WORKING",
-  "END"
+  "NOTSTARTED", "close-outline",
+  "WORKING","play-outline",
+  "END","checkmark-done-outline"
 }
