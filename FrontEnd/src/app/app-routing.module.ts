@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'create-class',
     loadChildren: () => import('./modal/create-class/create-class.module').then( m => m.CreateClassPageModule)
   },
+  {
+    path: 'create-group',
+    loadChildren: () => import('./modal/create-group/create-group.module').then( m => m.CreateGroupPageModule)
+  },
 ];
 
 @NgModule({

@@ -5,43 +5,50 @@
 </ion-header>
 
 <ion-content>
-
-    <!-- fab placed in the center of the content with a list on each side -->
-    <ion-fab vertical="top" horizontal="end" slot="fixed">
-      <ion-fab-button>
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-list side="bottom">
-        <ion-fab-button (click)="createClass()"color="success"><ion-icon name="person-add"></ion-icon></ion-fab-button>
-        <ion-fab-button (click)="removeClass(true)"color="danger"><ion-icon name="person-remove-outline"></ion-icon></ion-fab-button>
-        <ion-fab-button (click)="removeClass(false)"color="warning"><ion-icon name="brush-outline"></ion-icon></ion-fab-button>
-      </ion-fab-list>
-    </ion-fab>
+  <!-- fab placed in the center of the content with a list on each side -->
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <ion-fab-button (click)="createClass()" color="success"
+        ><ion-icon name="person-add"></ion-icon
+      ></ion-fab-button>
+      <ion-fab-button (click)="removeClass(true)" color="danger"
+        ><ion-icon name="person-remove-outline"></ion-icon
+      ></ion-fab-button>
+      <ion-fab-button (click)="removeClass(false)" color="warning"
+        ><ion-icon name="brush-outline"></ion-icon
+      ></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
   <ion-row>
     <ul *ngFor="let c of classes; index as i;">
       <ion-col>
         <ion-card>
-          <img (click)="selectClass(c)" src="{{c.image}}" height="200" width="180" />
+          <img
+            (click)="selectClass(c)"
+            src="{{c.image}}"
+            height="200"
+            width="180"
+          />
           <ion-item class="ion-activated">
-            <ion-card-title>
-              {{c.name}}
-            </ion-card-title>
+            <ion-card-title> {{c.name}} </ion-card-title>
             <ion-icon name="{{c.icon}}" slot="start"></ion-icon>
           </ion-item>
           <ion-card-content>
-
-          <ion-item *ngIf="showRemoveButton">
-            <ion-button  color="danger" (click)="modifiedClasses(i, true)">
-              <ion-icon name="search-outline"></ion-icon>
-              Delete
-            </ion-button>
-          </ion-item>
-          <ion-item *ngIf="showEditButton">
-            <ion-button  color="warning" (click)="modifiedClasses(i, false)">
-              <ion-icon name="search-outline"></ion-icon>
-              Edit Class
-            </ion-button>
-          </ion-item>
+            <ion-item *ngIf="showRemoveButton">
+              <ion-button color="danger" (click)="modifiedClasses(i, true)">
+                <ion-icon name="search-outline"></ion-icon>
+                Delete
+              </ion-button>
+            </ion-item>
+            <ion-item *ngIf="showEditButton">
+              <ion-button color="warning" (click)="modifiedClasses(i, false)">
+                <ion-icon name="search-outline"></ion-icon>
+                Edit Class
+              </ion-button>
+            </ion-item>
           </ion-card-content>
         </ion-card>
       </ion-col>

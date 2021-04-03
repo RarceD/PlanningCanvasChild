@@ -1,29 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Create new class in school</ion-title>
+    <ion-title> Create new group in class</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-item>
-    <ion-label> Introduce the name and pass: </ion-label>
+    <ion-label> Introduce the name of the new group: </ion-label>
   </ion-item>
   <ion-input
-    [(ngModel)]="class.name"
+    [(ngModel)]="group.name"
     placeholder="Enter class name"
   ></ion-input>
-  <ion-input [(ngModel)]="class.password" placeholder="Password"></ion-input>
+  <ion-input
+    [(ngModel)]="group.image"
+    placeholder="Image to show"
+  ></ion-input>
   <ion-item>
-    <ion-label> Introduce the image and icon from ionic: </ion-label>
+    <ion-label> Groups can only be created by teacher </ion-label>
   </ion-item>
   <ion-input
-    [(ngModel)]="class.image"
-    placeholder="Enter image url"
+    [(ngModel)]="teacherPassword"
+    placeholder="Teacher password"
   ></ion-input>
-  <ion-input
-    [(ngModel)]="class.icon"
-    placeholder="Enter icon to show"
-  ></ion-input>
+
   <section>
     <ion-row>
       <ion-col>

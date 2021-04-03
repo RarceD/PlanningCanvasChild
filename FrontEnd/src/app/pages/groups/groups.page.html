@@ -7,10 +7,19 @@
 </ion-header>
 
 <ion-content>
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button routerLink="/classes">
       <ion-icon name="arrow-back"></ion-icon>
     </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <ion-fab-button (click)="createGroup()"color="success"><ion-icon name="person-add"></ion-icon></ion-fab-button>
+      <ion-fab-button (click)="removeGroup(true)"color="danger"><ion-icon name="person-remove-outline"></ion-icon></ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
   <ion-row>
     <ul *ngFor="let g of groups index as i;">
@@ -23,19 +32,25 @@
             justify-content: center;
           "
         >
-          <ion-card routerLink="/schedule">
-            <img src="{{g.image}}" height="200" width="180" />
-            <ion-item class="ion-activated">
+          <ion-card>
+            <img src="{{g.image}}" height="200" width="180"  routerLink="/schedule" />
+            <ion-item  routerLink="/schedule"class="ion-activated">
               <ion-card-title class="ion-text-center">
                 Grupo {{g.name}}
               </ion-card-title>
             </ion-item>
             <ion-card-content>
               <ion-item>
-                <ion-button color="success">
+                <ion-button *ngIf="deleteGroup, else toDelete" (click)="removeGroup(g)" color="danger">
                   <ion-icon name="game-controller-outline"></ion-icon>
-                  Let's go
+                  Delete
                 </ion-button>
+                <ng-template #toDelete>
+                  <ion-button color="success">
+                    <ion-icon name="game-controller-outline"></ion-icon>
+                    Let's go
+                  </ion-button>
+                </ng-template>
               </ion-item>
             </ion-card-content>
           </ion-card>

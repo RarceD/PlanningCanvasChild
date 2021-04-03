@@ -1,5 +1,9 @@
+import { CreateGroupPage } from './../../modal/create-group/create-group.page';
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Groups } from 'src/app/interfaces/groups';
+import { RequestsService } from 'src/app/services/requests.service';
+import { ClassVerifiedPage } from 'src/app/modal/class-verified/class-verified.page';
 
 @Component({
   selector: 'app-groups',
@@ -30,10 +34,48 @@ export class GroupsPage implements OnInit {
     },
 
   ]
-
-  constructor() { }
+  public deleteGroup: boolean = false;
+  constructor(
+    public modalController: ModalController,
+    private requestService: RequestsService
+  ) { }
 
   ngOnInit() {
+  }
+
+  createGroup() {
+    this.createClass();
+  }
+  removeGroup(deleteGroupData) {
+    this.deleteGroup = !this.deleteGroup;
+    if (deleteGroupData!= null){
+      console.log(deleteGroupData)
+    }
+  }
+
+  async createClass() {
+    const modal = await this.modalController.create({
+      component: CreateGroupPage,
+      cssClass: 'my-custom-class',
+    });
+    modal.onDidDismiss()
+      .then((data) => {
+        if (data['data'] != null){
+          let g: Groups = data["data"]
+          this.groups.push(g);
+        }
+        // this.classes.push(data['data']);
+      });
+    return await modal.present();
+  }
+
+  async verifiedIfTeacher(pass) {
+    const modal = await this.modalController.create({
+      component: ClassVerifiedPage,
+      cssClass: 'my-custom-class',
+      componentProps: { 'truePassword': pass }
+    });
+    return await modal.present();
   }
 
 }
