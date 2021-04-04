@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center"> Planning Canvas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid >
+    <ion-row >
+      <ion-col >
+        <ion-card class="teacher" (click)="loginTeacher(true)">
+          <ion-card-title  class="align-items: center;" > <b>I'm a teacher</b> </ion-card-title>
+          <ion-card-content>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card class="children" (click)="loginTeacher(false)">
+          <ion-card-title> <b>I'm a student</b> </ion-card-title>
+          <ion-card-content>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+  <ion-card> </ion-card>
+</ion-content>

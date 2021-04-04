@@ -46,11 +46,15 @@ export class GroupsPage implements OnInit {
   createGroup() {
     this.createClass();
   }
-  removeGroup(deleteGroupData:Groups, action:boolean) {
-    this.deleteGroup = !this.deleteGroup;
-    if (action){
-      this.verifiedIfTeacher("a", deleteGroupData);
+  removeGroup(deleteGroupData: Groups, action: boolean) {
+    let user = localStorage.getItem("user");
+    if (user == "teacher") {
+      this.deleteGroup = !this.deleteGroup;
+      this.groups = this.groups.filter(obj => obj !== deleteGroupData);
 
+      // if (action){
+      //   this.verifiedIfTeacher("a", deleteGroupData);
+      // }
     }
   }
 
@@ -61,7 +65,7 @@ export class GroupsPage implements OnInit {
     });
     modal.onDidDismiss()
       .then((data) => {
-        if (data['data'] != null){
+        if (data['data'] != null) {
           let g: Groups = data["data"]
           this.groups.push(g);
         }
@@ -70,19 +74,19 @@ export class GroupsPage implements OnInit {
     return await modal.present();
   }
 
-  async verifiedIfTeacher(pass,deleteGroupData) {
+  async verifiedIfTeacher(pass, deleteGroupData) {
     const modal = await this.modalController.create({
       component: ClassVerifiedPage,
       cssClass: 'my-custom-class',
       componentProps: { 'truePassword': pass }
     });
     modal.onDidDismiss()
-    .then((data) => {
-      console.log(data['data']);
-      if (data['data'] != null)
-      if (deleteGroupData!= null)
-      this.groups = this.groups.filter(obj => obj !== deleteGroupData);
-    });
+      .then((data) => {
+        console.log(data['data']);
+        if (data['data'] != null)
+          if (deleteGroupData != null)
+            this.groups = this.groups.filter(obj => obj !== deleteGroupData);
+      });
 
     return await modal.present();
 

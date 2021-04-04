@@ -34,6 +34,8 @@ export class ClassVerifiedPage implements OnInit {
     }
     else if (this.userPass == "teacher") {
       console.log("You are the teacher");
+      localStorage.setItem("user", "teacher");
+      this.router.navigate(['/classes']);
       this.dismiss();
     } else {
       this.presentToast();

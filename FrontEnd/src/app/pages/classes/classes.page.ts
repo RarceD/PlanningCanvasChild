@@ -93,6 +93,8 @@ export class ClassesPage implements OnInit {
     return await modal.present();
   }
   async createClass() {
+    let user = localStorage.getItem("user");
+    if (user == "teacher"){
     const modal = await this.modalController.create({
       component: CreateClassPage,
       cssClass: 'my-custom-class',
@@ -101,21 +103,26 @@ export class ClassesPage implements OnInit {
       }
     });
     modal.onDidDismiss()
-      .then((data) => {
-        console.log(data['data']);
-        if (data['data'] != null)
-          this.classes.push(data['data']);
-      });
+    .then((data) => {
+      console.log(data['data']);
+      if (data['data'] != null)
+      this.classes.push(data['data']);
+    });
     return await modal.present();
   }
+  }
   removeClass(deleteClass) {
+    let user = localStorage.getItem("user");
+    if (user == "teacher"){
     if (deleteClass)
       this.showRemoveButton = true;
     else
       this.showEditButton = true;
+    }
   }
 
   async modifiedClasses(item, deleteItem) {
+
     this.showEditButton = false;
     this.showRemoveButton = false;
     if (deleteItem) {
