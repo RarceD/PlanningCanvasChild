@@ -26,18 +26,20 @@ export class ClassVerifiedPage implements OnInit {
     });
   }
   checkSubmission() {
-    console.log(this.userPass, this.truePassword);
-    if (this.userPass == this.truePassword){
-
+    // console.log(this.userPass, this.truePassword);
+    if (this.userPass == this.truePassword) {
       console.log("Match the pass");
       this.router.navigate(['/groups']);
+      this.dismiss();
     }
-    else
-    {
+    else if (this.userPass == "teacher") {
+      console.log("You are the teacher");
+      this.dismiss();
+    } else {
       this.presentToast();
+      this.dismiss();
+
     }
-      console.log("Fail the pass");
-    this.dismiss();
   }
   async presentToast() {
     const toast = await this.toastController.create({

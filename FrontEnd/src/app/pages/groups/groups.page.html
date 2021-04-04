@@ -18,7 +18,7 @@
     </ion-fab-button>
     <ion-fab-list side="bottom">
       <ion-fab-button (click)="createGroup()"color="success"><ion-icon name="person-add"></ion-icon></ion-fab-button>
-      <ion-fab-button (click)="removeGroup(true)"color="danger"><ion-icon name="person-remove-outline"></ion-icon></ion-fab-button>
+      <ion-fab-button (click)="removeGroup(null,false)"color="danger"><ion-icon name="person-remove-outline"></ion-icon></ion-fab-button>
     </ion-fab-list>
   </ion-fab>
   <ion-row>
@@ -41,12 +41,12 @@
             </ion-item>
             <ion-card-content>
               <ion-item>
-                <ion-button *ngIf="deleteGroup, else toDelete" (click)="removeGroup(g)" color="danger">
+                <ion-button *ngIf="deleteGroup, else toDelete" (click)="removeGroup(g, true)" color="danger">
                   <ion-icon name="game-controller-outline"></ion-icon>
                   Delete
                 </ion-button>
                 <ng-template #toDelete>
-                  <ion-button color="success">
+                  <ion-button  routerLink="/schedule" color="success">
                     <ion-icon name="game-controller-outline"></ion-icon>
                     Let's go
                   </ion-button>
