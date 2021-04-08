@@ -1,3 +1,4 @@
+import { Classes } from './../interfaces/classes';
 import { Groups } from 'src/app/interfaces/groups';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -9,9 +10,14 @@ export class RequestsService {
   constructor(private http: HttpClient) { }
 
   //I get the groups from DB:
-  urlGetClass = "http://localhost/api/groups"
+  urlGet = "https://localhost:44313"
   getClass() {
-    return this.http.get<Groups[]>(this.urlGetClass);
+    let url = this.urlGet + "/classes";
+    return this.http.get<Classes[]>(url);
+  }
+  getGroups() {
+    let url = this.urlGet + "/groups";
+    return this.http.get<Groups[]>(url);
   }
   //I create the new groups:
   // postGroup(group) {

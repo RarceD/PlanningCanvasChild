@@ -24,6 +24,7 @@ namespace netcoreBackend.Controllers
                 a.id = i;
                 a.name = "name";
                 a.password = "passwords";
+                a.image = "../../assets/images/group_4.svg";
                 array_classes.Add(a);
             }
 

@@ -1,3 +1,4 @@
+import { Groups } from './../../interfaces/groups';
 import { RequestsService } from './../../services/requests.service';
 import { CreateClassPage } from './../../modal/create-class/create-class.page';
 import { ClassVerifiedPage } from './../../modal/class-verified/class-verified.page';
@@ -68,10 +69,14 @@ export class ClassesPage implements OnInit {
   }
 
   obteidClassesBackend() {
-    console.log("in")
+
     this.requestService.getClass().subscribe(
-      data => {
-        console.log(data)
+      data=> {
+        console.log(data);
+        for (let g in data){
+          data[g].image = "../../assets/images/class_e.svg";
+          this.classes.push(data[g]);
+        }
       },
       err => console.error('Observer got an error: ' + err),
       () => console.log('Observer got a complete notification')

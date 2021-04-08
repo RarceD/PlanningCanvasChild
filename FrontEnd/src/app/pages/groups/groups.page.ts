@@ -41,6 +41,23 @@ export class GroupsPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.obteidGroupsBackend();
+  }
+
+  obteidGroupsBackend() {
+
+    this.requestService.getClass().subscribe(
+      data=> {
+        console.log(data);
+        for (let g in data){
+          // data[g].image = "../../assets/images/class_e.svg";
+        this.groups.push(data[g]);
+        }
+      },
+      err => console.error('Observer got an error: ' + err),
+      () => console.log('Observer got a complete notification')
+    )
+
   }
 
   createGroup() {

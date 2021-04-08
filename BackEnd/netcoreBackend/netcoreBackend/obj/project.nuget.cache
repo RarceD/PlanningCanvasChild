@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "0fyfmgqdvHLaCDc62Hm6TADJKS9OdHPlmrjuvZHkAZVNtWc5+czMOuNwLRE5Vap7LoJbfrJxnak4SMIXsOIc4A==",
+  "dgSpecHash": "dFthf7goKDYLZv15aqyPQ7XJbxQFhJopsOmGfjfvrpG6KSMCf7gvy3UPkc5Aa7fPg1bZy6Op1opKdQ7eOEQeiw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Tecnica2\\Desktop\\work\\PlanningCanvasChild\\BackEnd\\netcoreBackend\\netcoreBackend\\netcoreBackend.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Tecnica2\\.nuget\\packages\\microsoft.data.sqlite\\5.0.5\\microsoft.data.sqlite.5.0.5.nupkg.sha512",
+    "C:\\Users\\Tecnica2\\.nuget\\packages\\microsoft.data.sqlite.core\\5.0.5\\microsoft.data.sqlite.core.5.0.5.nupkg.sha512",
+    "C:\\Users\\Tecnica2\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.4\\sqlitepclraw.bundle_e_sqlite3.2.0.4.nupkg.sha512",
+    "C:\\Users\\Tecnica2\\.nuget\\packages\\sqlitepclraw.core\\2.0.4\\sqlitepclraw.core.2.0.4.nupkg.sha512",
+    "C:\\Users\\Tecnica2\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.0.4\\sqlitepclraw.lib.e_sqlite3.2.0.4.nupkg.sha512",
+    "C:\\Users\\Tecnica2\\.nuget\\packages\\sqlitepclraw.provider.dynamic_cdecl\\2.0.4\\sqlitepclraw.provider.dynamic_cdecl.2.0.4.nupkg.sha512",
+    "C:\\Users\\Tecnica2\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+  ],
   "logs": []
 }
