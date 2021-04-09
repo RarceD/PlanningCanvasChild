@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.Sqlite;
 using netcoreBackend.Models;
 
 namespace netcoreBackend.Controllers
@@ -27,8 +28,27 @@ namespace netcoreBackend.Controllers
                 a.image = "../../assets/images/group_4.svg";
                 array_classes.Add(a);
             }
+            using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
+            {
+                connection.Open();
 
-             return Ok(array_classes); 
+                var command = connection.CreateCommand();
+                command.CommandText = @"SELECT * FROM Classes;";
+                //command.Parameters.AddWithValue("$id", id);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var a = new Class();
+                        a.id = Int32.Parse(reader.GetString(0));
+                        a.image = reader.GetString(1);
+                        array_classes.Add(a);
+                    }
+                }
+            }
+
+            return Ok(array_classes); 
         }
 
         // GET: ClassController

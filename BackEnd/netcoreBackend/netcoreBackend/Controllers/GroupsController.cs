@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.Sqlite;
 using netcoreBackend.Models;
 
 namespace netcoreBackend.Controllers
@@ -25,6 +26,25 @@ namespace netcoreBackend.Controllers
                 a.name = "nop";
 
                 groups.Add(a);
+            }
+            using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText = @"SELECT * FROM Groups;";
+                //command.Parameters.AddWithValue("$id", id);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var a = new Group();
+                        a.id = Int32.Parse(reader.GetString(0));
+                        a.image = reader.GetString(1);
+                        groups.Add(a);
+                    }
+                }
             }
             return Ok(groups);
         }

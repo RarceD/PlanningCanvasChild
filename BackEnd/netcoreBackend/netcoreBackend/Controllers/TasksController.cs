@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.Sqlite;
 using netcoreBackend.Models;
 
 namespace netcoreBackend.Controllers
@@ -26,6 +27,25 @@ namespace netcoreBackend.Controllers
                 a.text = "asd";
                 array_tasks.Add(a);
  
+            }
+            using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText = @"SELECT * FROM Main_task;";
+                //command.Parameters.AddWithValue("$id", id);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var a = new MainTask();
+                        a.id= Int32.Parse(reader.GetString(0));
+                        a.text = reader.GetString(1);
+                        array_tasks.Add(a);
+                    }
+                }
             }
             return Ok(array_tasks);
         }

@@ -32,7 +32,7 @@ namespace netcoreBackend.Controllers
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText =@"SELECT * FROM Lamps;";
+                command.CommandText =@"SELECT * FROM Classes;";
                 //command.Parameters.AddWithValue("$id", id);
 
                 using (var reader = command.ExecuteReader())
@@ -40,6 +40,7 @@ namespace netcoreBackend.Controllers
                     while (reader.Read())
                     {
                         var name = reader.GetString(0);
+ 
 
                         Console.WriteLine($"Hello, {name}!");
                     }
