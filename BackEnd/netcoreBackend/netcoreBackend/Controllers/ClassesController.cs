@@ -51,80 +51,77 @@ namespace netcoreBackend.Controllers
             return Ok(array_classes); 
         }
 
-        // GET: ClassController
-        public ActionResult Index()
-        {
-             
-            return Ok("todo bien");
-        }
-
-        // GET: ClassController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: ClassController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ClassController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+       
+        [HttpPost("add")]
+        public ActionResult add_class(Class classReceived)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+            //INSERT INTO Classes(name, password, image, icon) VALUES("nametest", "passtest", "imagetest", "icontest");
+                using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"INSERT INTO Classes(name, password, image, icon) VALUES ($name, $password, $image, $icon);";
+                    command.Parameters.AddWithValue("$name", classReceived.name);
+                    command.Parameters.AddWithValue("$password", classReceived.password);
+                    command.Parameters.AddWithValue("$image", classReceived.image);
+                    command.Parameters.AddWithValue("$icon", classReceived.icon);
+                    command.ExecuteReader();
+                    return Ok();
+                }
             }
             catch
             {
-                return View();
+                return NotFound();
             }
         }
-
-        // GET: ClassController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ClassController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [HttpPost("delete")]
+        public ActionResult delete_class(Class classReceived)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                //INSERT INTO Classes(name, password, image, icon) VALUES("nametest", "passtest", "imagetest", "icontest");
+                using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"DELETE FROM Classes WHERE id=$id;";
+                    command.Parameters.AddWithValue("$id", classReceived.id);
+                    command.ExecuteReader();
+                    return Ok();
+                }
             }
             catch
             {
-                return View();
+                return NotFound();
             }
         }
-
-        // GET: ClassController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ClassController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpPost("update")]
+        public ActionResult update_class(Class classReceived)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                //INSERT INTO Classes(name, password, image, icon) VALUES("nametest", "passtest", "imagetest", "icontest");
+                using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"UPDATE Classes SET name=$name, password=$password, image=$image, icon=$icon WHERE id=$id;";
+                    command.Parameters.AddWithValue("$name", classReceived.name);
+                    command.Parameters.AddWithValue("$password", classReceived.password);
+                    command.Parameters.AddWithValue("$image", classReceived.image);
+                    command.Parameters.AddWithValue("$icon", classReceived.icon);
+                    command.Parameters.AddWithValue("$id", classReceived.id);
+                    command.ExecuteReader();
+                    return Ok();
+                }
             }
             catch
             {
-                return View();
+                return NotFound();
             }
         }
+
     }
 }

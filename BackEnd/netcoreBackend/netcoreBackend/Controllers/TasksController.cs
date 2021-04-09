@@ -40,6 +40,7 @@ namespace netcoreBackend.Controllers
                 {
                     while (reader.Read())
                     {
+                        
                         var a = new MainTask();
                         a.id= Int32.Parse(reader.GetString(0));
                         a.text = reader.GetString(1);
