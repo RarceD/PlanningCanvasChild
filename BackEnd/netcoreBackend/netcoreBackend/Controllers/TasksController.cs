@@ -51,10 +51,10 @@ namespace netcoreBackend.Controllers
             return Ok(array_tasks);
         }
 
-        // GET: TasksController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet("status")]
+        public ActionResult get_status()
         {
-            return View();
+            return Ok(PeriodicTasks.status_counter);
         }
 
         // GET: TasksController/Create

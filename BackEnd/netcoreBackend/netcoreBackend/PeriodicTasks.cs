@@ -10,19 +10,21 @@ namespace netcoreBackend
     {
         static CancellationToken stoppingToken;
         private static Timer _timer;
+        public static int status_counter = 0;
         public static void Initialize()
         {
             StartAsync(stoppingToken);
         }
         public static Task StartAsync(CancellationToken stoppingToken)
         {
-            _timer = new Timer(DoWork, null, TimeSpan.FromSeconds(30),
-                TimeSpan.FromSeconds(30));
+            _timer = new Timer(DoWork, null, TimeSpan.FromSeconds(60),
+                TimeSpan.FromSeconds(60));
             return Task.CompletedTask;
         }
         private static void DoWork(object state)
         {
             //Console.WriteLine("test");
+            status_counter++;
         }
         public static Task StopAsync(CancellationToken stoppingToken)
         {

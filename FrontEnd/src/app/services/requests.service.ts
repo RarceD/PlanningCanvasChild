@@ -10,7 +10,8 @@ export class RequestsService {
   constructor(private http: HttpClient) { }
 
   //I get the groups from DB:
-  public urlGet = "https://localhost:5002";
+  // public urlGet = "https://localhost:5002";
+  public urlGet = "https://81.46.227.112:5002";
 
   getClass() {
     let url = this.urlGet + "/classes";
@@ -37,6 +38,6 @@ export class RequestsService {
     else
       url += "/delete";
     console.log(url, postData);
-    this.http.post<any>(url, postData).subscribe()
+    this.http.post<any>(url, postData).subscribe();
   }
 }
