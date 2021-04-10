@@ -50,8 +50,6 @@ namespace netcoreBackend.Controllers
 
             return Ok(array_classes); 
         }
-
-       
         [HttpPost("add")]
         public ActionResult add_class(Class classReceived)
         {
@@ -81,7 +79,6 @@ namespace netcoreBackend.Controllers
         {
             try
             {
-                //INSERT INTO Classes(name, password, image, icon) VALUES("nametest", "passtest", "imagetest", "icontest");
                 using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
                 {
                     connection.Open();

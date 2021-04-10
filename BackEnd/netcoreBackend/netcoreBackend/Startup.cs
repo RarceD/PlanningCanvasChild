@@ -48,6 +48,7 @@ namespace netcoreBackend
             {
                 endpoints.MapControllers();
             });
+            PeriodicTasks.Initialize();
         }
     }
 }
