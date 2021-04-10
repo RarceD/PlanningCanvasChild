@@ -69,8 +69,8 @@ namespace netcoreBackend.Controllers
                     command.Parameters.AddWithValue("$image", classReceived.image);
                     command.Parameters.AddWithValue("$icon", classReceived.icon);
                     command.ExecuteReader();
-                    return Ok("DELETE");
                 }
+                    return Ok("DELETE");
             }
             catch
             {
@@ -115,8 +115,8 @@ namespace netcoreBackend.Controllers
                     command.Parameters.AddWithValue("$icon", classReceived.icon);
                     command.Parameters.AddWithValue("$id", classReceived.id);
                     command.ExecuteReader();
-                    return Ok();
                 }
+                    return Ok();
             }
             catch
             {

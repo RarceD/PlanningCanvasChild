@@ -12,26 +12,26 @@ import { ClassVerifiedPage } from 'src/app/modal/class-verified/class-verified.p
 })
 export class GroupsPage implements OnInit {
   public groups: Groups[] = [
-    {
-      id: 1,
-      name: "Azules",
-      image: "../../assets/images/group_1.svg",
-    },
-    {
-      id: 2,
-      name: "Violetas",
-      image: "../../assets/images/group_2.svg",
-    },
-    {
-      id: 3,
-      name: "Rojo",
-      image: "../../assets/images/group_3.svg",
-    },
-    {
-      id: 4,
-      name: "Verde",
-      image: "../../assets/images/group_4.svg",
-    },
+    // {
+    //   id: 1,
+    //   name: "Azules",
+    //   image: "../../assets/images/group_1.svg",
+    // },
+    // {
+    //   id: 2,
+    //   name: "Violetas",
+    //   image: "../../assets/images/group_2.svg",
+    // },
+    // {
+    //   id: 3,
+    //   name: "Rojo",
+    //   image: "../../assets/images/group_3.svg",
+    // },
+    // {
+    //   id: 4,
+    //   name: "Verde",
+    //   image: "../../assets/images/group_4.svg",
+    // },
 
   ]
   public deleteGroup: boolean = false;
@@ -46,13 +46,11 @@ export class GroupsPage implements OnInit {
 
   obteidGroupsBackend() {
 
-    this.requestService.getClass().subscribe(
-      data=> {
+    this.requestService.getGroups().subscribe(
+      data => {
         console.log(data);
-        for (let g in data){
-          // data[g].image = "../../assets/images/class_e.svg";
-        this.groups.push(data[g]);
-        }
+        for (let g in data)
+          this.groups.push(data[g]);
       },
       err => console.error('Observer got an error: ' + err),
       () => console.log('Observer got a complete notification')
@@ -68,7 +66,7 @@ export class GroupsPage implements OnInit {
     if (user == "teacher") {
       this.deleteGroup = !this.deleteGroup;
       this.groups = this.groups.filter(obj => obj !== deleteGroupData);
-
+      this.requestService.modifiedGroups(deleteGroupData, false);
       // if (action){
       //   this.verifiedIfTeacher("a", deleteGroupData);
       // }
@@ -85,24 +83,28 @@ export class GroupsPage implements OnInit {
         if (data['data'] != null) {
           let g: Groups = data["data"]
           this.groups.push(g);
+          this.requestService.modifiedGroups(g, true);
         }
         // this.classes.push(data['data']);
       });
-    return await modal.present();
-  }
+      return await modal.present();
+    }
 
-  async verifiedIfTeacher(pass, deleteGroupData) {
-    const modal = await this.modalController.create({
-      component: ClassVerifiedPage,
-      cssClass: 'my-custom-class',
+    async verifiedIfTeacher(pass, deleteGroupData) {
+      const modal = await this.modalController.create({
+        component: ClassVerifiedPage,
+        cssClass: 'my-custom-class',
       componentProps: { 'truePassword': pass }
     });
     modal.onDidDismiss()
       .then((data) => {
         console.log(data['data']);
         if (data['data'] != null)
-          if (deleteGroupData != null)
-            this.groups = this.groups.filter(obj => obj !== deleteGroupData);
+        if (deleteGroupData != null){
+          this.requestService.modifiedGroups(deleteGroupData, false);
+          this.groups = this.groups.filter(obj => obj !== deleteGroupData);
+
+        }
       });
 
     return await modal.present();

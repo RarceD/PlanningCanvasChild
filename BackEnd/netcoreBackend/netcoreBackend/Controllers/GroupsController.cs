@@ -18,15 +18,6 @@ namespace netcoreBackend.Controllers
         public ActionResult Index()
         {
             List<Group> groups = new List<Group>();
-            for (int i = 0; i < 4; i++)
-            {
-                var a = new Group();
-                a.id = i;
-                a.image = "anap";
-                a.name = "nop";
-
-                groups.Add(a);
-            }
             using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
             {
                 connection.Open();
@@ -41,13 +32,58 @@ namespace netcoreBackend.Controllers
                     {
                         var a = new Group();
                         a.id = Int32.Parse(reader.GetString(0));
-                        a.image = reader.GetString(1);
+                        a.name = reader.GetString(1);
+                        a.image = reader.GetString(2);
                         groups.Add(a);
                     }
                 }
             }
             return Ok(groups);
         }
+        [HttpPost("add")]
+        public ActionResult<string> add_class(Class classReceived)
+        {
+            try
+            {
+                //INSERT INTO Classes(name, password, image, icon) VALUES("nametest", "passtest", "imagetest", "icontest");
+                using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"INSERT INTO Groups (name, image) VALUES ($name, $image);";
+                    command.Parameters.AddWithValue("$name", classReceived.name);
+                    command.Parameters.AddWithValue("$image", classReceived.image);
+                    command.ExecuteReader();
+                }
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+        [HttpPost("delete")]
+        public ActionResult<string> delete_class(Class classReceived)
+        {
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
+                {
+                    connection.Open();
+                    Console.WriteLine("delete action trigger");
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"DELETE FROM Groups WHERE id=$id;";
+                    command.Parameters.AddWithValue("$id", classReceived.id);
+                    command.ExecuteReader();
+                    return Ok();
+                }
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+        
 
         // GET: GroupController/Details/5
         public ActionResult Details(int id)

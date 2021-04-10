@@ -10,7 +10,8 @@ export class RequestsService {
   constructor(private http: HttpClient) { }
 
   //I get the groups from DB:
-  urlGet = "https://localhost:5002";
+  public urlGet = "https://localhost:5002";
+
   getClass() {
     let url = this.urlGet + "/classes";
     return this.http.get<Classes[]>(url);
@@ -21,25 +22,21 @@ export class RequestsService {
       url += "/add";
     else
       url += "/delete";
-    console.log(url, postData);
     this.http.post<any>(url, postData).subscribe(data => {
       // console.log(data);
     })
   }
-  
   getGroups() {
     let url = this.urlGet + "/groups";
     return this.http.get<Groups[]>(url);
   }
-  //I create the new groups:
-  // postGroup(group) {
-  //   group.gatewayUUID = "Test"
-  //   group.clientID = 1
-  //   group.lamps = []
-  //   console.log(group);
-  //   this.http.post<Groups>(this.groupLamp, group).subscribe(data => {
-  //     // console.log(data);
-  //   })
-  // }
-
+  modifiedGroups(postData: Groups, add: boolean) {
+    let url = this.urlGet+ "/groups";
+    if (add)
+      url += "/add";
+    else
+      url += "/delete";
+    console.log(url, postData);
+    this.http.post<any>(url, postData).subscribe()
+  }
 }
