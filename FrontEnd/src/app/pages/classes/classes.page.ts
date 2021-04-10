@@ -14,48 +14,48 @@ export class ClassesPage implements OnInit {
 
   public classes: Classes[] =
     [
-      {
-        id: 1,
-        name: " 2ºA ",
-        password: "a",
-        image: "../../assets/images/class_e.svg",
-        icon: "brush"
-      },
-      {
-        id: 2,
-        name: " 5ºB",
-        password: "b",
-        image: "../../assets/images/class_a.svg",
-        icon: "aperture"
-      },
-      {
-        id: 3,
-        name: " 1ºB",
-        password: "c",
-        image: "../../assets/images/class_b.svg",
-        icon: "paper-plane"
-      },
-      {
-        id: 4,
-        name: " 1ºB",
-        password: "c",
-        image: "../../assets/images/class_c.svg",
-        icon: "color-palette"
-      },
-      {
-        id: 5,
-        name: " 4ºB",
-        password: "d",
-        image: "../../assets/images/class_d.svg",
-        icon: "color-fill"
-      },
-      {
-        id: 6,
-        name: " 3ºA",
-        password: "f",
-        image: "../../assets/images/class_f.svg",
-        icon: "color-fill"
-      },
+      // {
+      //   id: 1,
+      //   name: " 2ºA ",
+      //   password: "a",
+      //   image: "../../assets/images/class_e.svg",
+      //   icon: "brush"
+      // },
+      // {
+      //   id: 2,
+      //   name: " 5ºB",
+      //   password: "b",
+      //   image: "../../assets/images/class_a.svg",
+      //   icon: "aperture"
+      // },
+      // {
+      //   id: 3,
+      //   name: " 1ºB",
+      //   password: "c",
+      //   image: "../../assets/images/class_b.svg",
+      //   icon: "paper-plane"
+      // },
+      // {
+      //   id: 4,
+      //   name: " 1ºB",
+      //   password: "c",
+      //   image: "../../assets/images/class_c.svg",
+      //   icon: "color-palette"
+      // },
+      // {
+      //   id: 5,
+      //   name: " 4ºB",
+      //   password: "d",
+      //   image: "../../assets/images/class_d.svg",
+      //   icon: "color-fill"
+      // },
+      // {
+      //   id: 6,
+      //   name: " 3ºA",
+      //   password: "f",
+      //   image: "../../assets/images/class_f.svg",
+      //   icon: "color-fill"
+      // },
     ];
   public showRemoveButton: boolean = false;
   public showEditButton: boolean = false;
@@ -74,7 +74,7 @@ export class ClassesPage implements OnInit {
       data=> {
         console.log(data);
         for (let g in data){
-          data[g].image = "../../assets/images/class_e.svg";
+          // data[g].image = "../../assets/images/class_e.svg";
           this.classes.push(data[g]);
         }
       },
@@ -112,6 +112,8 @@ export class ClassesPage implements OnInit {
       console.log(data['data']);
       if (data['data'] != null)
       this.classes.push(data['data']);
+      this.requestService.modifiedClass(data['data'], true);
+
     });
     return await modal.present();
   }
@@ -131,6 +133,7 @@ export class ClassesPage implements OnInit {
     this.showEditButton = false;
     this.showRemoveButton = false;
     if (deleteItem) {
+      this.requestService.modifiedClass( this.classes[item], false);
       this.classes = this.classes.filter(obj => obj !== this.classes[item]);
     }
     else {
@@ -152,14 +155,15 @@ export class ClassesPage implements OnInit {
                 addMoreItem = false;
               }
             }
-            if (addMoreItem)
+            if (addMoreItem){
               this.classes.push(data['data']);
+            }
           }
 
 
         });
-      return await modal.present();
-    }
+        return await modal.present();
+      }
 
   }
 

@@ -20,13 +20,13 @@ namespace netcoreBackend.Controllers
             List<Class> array_classes = new List<Class>();
             for (int i = 0; i<10; i++)
             {
-                var a = new Class();
-                a.icon = "hola";
-                a.id = i;
-                a.name = "name";
-                a.password = "passwords";
-                a.image = "../../assets/images/group_4.svg";
-                array_classes.Add(a);
+                //var a = new Class();
+                //a.icon = "hola";
+                //a.id = i;
+                //a.name = "name";
+                //a.password = "passwords";
+                //a.image = "../../assets/images/group_4.svg";
+                //array_classes.Add(a);
             }
             using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
             {
@@ -42,7 +42,10 @@ namespace netcoreBackend.Controllers
                     {
                         var a = new Class();
                         a.id = Int32.Parse(reader.GetString(0));
-                        a.image = reader.GetString(1);
+                        a.name = reader.GetString(1);
+                        a.password = reader.GetString(2);
+                        a.image = reader.GetString(3);
+                        a.icon = reader.GetString(4);
                         array_classes.Add(a);
                     }
                 }
@@ -51,7 +54,7 @@ namespace netcoreBackend.Controllers
             return Ok(array_classes); 
         }
         [HttpPost("add")]
-        public ActionResult add_class(Class classReceived)
+        public ActionResult<string> add_class(Class classReceived)
         {
             try
             {
@@ -66,7 +69,7 @@ namespace netcoreBackend.Controllers
                     command.Parameters.AddWithValue("$image", classReceived.image);
                     command.Parameters.AddWithValue("$icon", classReceived.icon);
                     command.ExecuteReader();
-                    return Ok();
+                    return Ok("DELETE");
                 }
             }
             catch
@@ -75,13 +78,14 @@ namespace netcoreBackend.Controllers
             }
         }
         [HttpPost("delete")]
-        public ActionResult delete_class(Class classReceived)
+        public ActionResult<string> delete_class(Class classReceived)
         {
             try
             {
                 using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
                 {
                     connection.Open();
+                    Console.WriteLine("delete action trigger");
                     var command = connection.CreateCommand();
                     command.CommandText = @"DELETE FROM Classes WHERE id=$id;";
                     command.Parameters.AddWithValue("$id", classReceived.id);
@@ -95,7 +99,7 @@ namespace netcoreBackend.Controllers
             }
         }
         [HttpPost("update")]
-        public ActionResult update_class(Class classReceived)
+        public ActionResult<string> update_class(Class classReceived)
         {
             try
             {
