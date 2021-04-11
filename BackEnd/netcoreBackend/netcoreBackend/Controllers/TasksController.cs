@@ -18,106 +18,77 @@ namespace netcoreBackend.Controllers
         public ActionResult Index()
         {
             List<MainTask> array_tasks = new List<MainTask>();
-            for (int i= 0; i<6; i++)
-            {
-                MainTask a = new MainTask();
-                a.id = i;
-                a.start = "asdf";
-                a.status = "";
-                a.text = "asd";
-                array_tasks.Add(a);
- 
-            }
             using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
             {
                 connection.Open();
-
                 var command = connection.CreateCommand();
                 command.CommandText = @"SELECT * FROM Main_task;";
                 //command.Parameters.AddWithValue("$id", id);
-
+                
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        
-                        var a = new MainTask();
-                        a.id= Int32.Parse(reader.GetString(0));
-                        a.text = reader.GetString(1);
-                        array_tasks.Add(a);
+                        var t = new MainTask();
+                        t.id = Int32.Parse(reader.GetString(0));
+                        t.text = reader.GetString(1);
+                        t.start = Int32.Parse(reader.GetString(2)); 
+                        t.end = Int32.Parse(reader.GetString(3));
+                        t.status = Int32.Parse(reader.GetString(4));
+                        array_tasks.Add(t);
+
+
                     }
                 }
             }
             return Ok(array_tasks);
         }
 
-        [HttpGet("status")]
-        public ActionResult get_status()
-        {
-            return Ok(PeriodicTasks.status_counter);
-        }
 
-        // GET: TasksController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: TasksController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [HttpPost("delete")]
+        public ActionResult<string> Delete_class(MainTask main_task_received)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"DELETE FROM Main_task WHERE id=$id;";
+                    command.Parameters.AddWithValue("$id", main_task_received.id);
+                    List<MainTask> tasks = new List<MainTask>();
+                    var reader = command.ExecuteReader();
+                    return Ok("delete successfully");
+                }
             }
             catch
-            {
-                return View();
+            {   
+                return NotFound();
             }
         }
-
-        // GET: TasksController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: TasksController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [HttpPost("add")]
+        public ActionResult<string> Add_class(MainTask main_task_received)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"INSERT INTO Main_task (text, start, end, status) VALUES ($text, $start, $end, $status);";
+                    command.Parameters.AddWithValue("$text", main_task_received.text);
+                    command.Parameters.AddWithValue("$start", main_task_received.start);
+                    command.Parameters.AddWithValue("$end", main_task_received.end);
+                    command.Parameters.AddWithValue("$status", main_task_received.status);
+                    command.ExecuteReader();
+                    return Ok("Add successfully");
+                }
             }
             catch
             {
-                return View();
-            }
-        }
-
-        // GET: TasksController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: TasksController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                return NotFound();
             }
         }
     }
+
 }
