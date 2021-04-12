@@ -23,8 +23,6 @@ namespace netcoreBackend.Controllers
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText = @"SELECT * FROM Main_task;";
-                //command.Parameters.AddWithValue("$id", id);
-                
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -35,9 +33,27 @@ namespace netcoreBackend.Controllers
                         t.start = Int32.Parse(reader.GetString(2)); 
                         t.end = Int32.Parse(reader.GetString(3));
                         t.status = Int32.Parse(reader.GetString(4));
+                        //var command_2 = connection.CreateCommand();
+                        connection.Close();
+                        connection.Open();
+                        command = connection.CreateCommand();
+                        command.CommandText = @"SELECT * FROM Second_task WHERE id_main_task = $id_main_task;";
+                        using (var reader_2 = command.ExecuteReader())
+                        {
+                            while (reader_2.Read())
+                            {
+                                var s = new SecondTask();
+                                s.id = Int32.Parse(reader_2.GetString(0));
+                                s.text = reader_2.GetString(1);
+                                s.start = Int32.Parse(reader_2.GetString(2));
+                                s.end = Int32.Parse(reader_2.GetString(3));
+                                s.child_name = reader_2.GetString(4);
+                                s.id_main_task = Int32.Parse(reader_2.GetString(5));
+                                t.associatedTasks.Add(s);
+                            }
+                        }
+
                         array_tasks.Add(t);
-
-
                     }
                 }
             }
@@ -81,6 +97,19 @@ namespace netcoreBackend.Controllers
                     command.Parameters.AddWithValue("$end", main_task_received.end);
                     command.Parameters.AddWithValue("$status", main_task_received.status);
                     command.ExecuteReader();
+                    int number_second_task = main_task_received.associatedTasks.Count;
+                    Console.WriteLine(number_second_task);
+                    for (int i = 0; i < number_second_task; i++)
+                    {
+                        var command_2 = connection.CreateCommand();
+                        command.CommandText = @"INSERT INTO Second_task ( text, start, end, child_name, id_main_task) VALUES ($text, $start, $end, $child_name, $id_main_task);";
+                        command.Parameters.AddWithValue("$text", main_task_received.associatedTasks[i].text);
+                        command.Parameters.AddWithValue("$start", main_task_received.associatedTasks[i].start);
+                        command.Parameters.AddWithValue("$end", main_task_received.associatedTasks[i].end);
+                        command.Parameters.AddWithValue("$child_name", main_task_received.associatedTasks[i].child_name);
+                        command.Parameters.AddWithValue("$id_main_task", main_task_received.associatedTasks[i].id_main_task);
+                        command.ExecuteReader();
+                    }
                     return Ok("Add successfully");
                 }
             }
