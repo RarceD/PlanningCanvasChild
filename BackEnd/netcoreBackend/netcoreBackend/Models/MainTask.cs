@@ -13,11 +13,16 @@ namespace netcoreBackend.Models
         public int end { get; set; }
         public int status { get; set; }
         public List<SecondTask> associatedTasks { get; set; }
+
+        public MainTask()
+        {
+            this.associatedTasks = new List<SecondTask>();
+        }
     }
 
     public class SecondTask
     {
-        public int id { get; set; }
+        public Int32 id { get; set; }
         public string text { get; set; }
         public int start { get; set; }
         public int end { get; set; }

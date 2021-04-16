@@ -17,7 +17,7 @@ namespace netcoreBackend.Controllers
         // GET: TasksController
         public ActionResult Index()
         {
-            List<MainTask> array_tasks = new List<MainTask>();
+            var array_tasks = new List<MainTask>();
             using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
             {
                 connection.Open();
@@ -30,36 +30,49 @@ namespace netcoreBackend.Controllers
                         var t = new MainTask();
                         t.id = Int32.Parse(reader.GetString(0));
                         t.text = reader.GetString(1);
-                        t.start = Int32.Parse(reader.GetString(2)); 
+                        t.start = Int32.Parse(reader.GetString(2));
                         t.end = Int32.Parse(reader.GetString(3));
                         t.status = Int32.Parse(reader.GetString(4));
-                        //var command_2 = connection.CreateCommand();
-                        connection.Close();
-                        connection.Open();
-                        command = connection.CreateCommand();
-                        command.CommandText = @"SELECT * FROM Second_task WHERE id_main_task = $id_main_task;";
-                        using (var reader_2 = command.ExecuteReader())
+                        using (var connectionn = new SqliteConnection("Data Source=DB/Database.db"))
                         {
-                            while (reader_2.Read())
+                            connectionn.Open();
+                            try
                             {
-                                var s = new SecondTask();
-                                s.id = Int32.Parse(reader_2.GetString(0));
-                                s.text = reader_2.GetString(1);
-                                s.start = Int32.Parse(reader_2.GetString(2));
-                                s.end = Int32.Parse(reader_2.GetString(3));
-                                s.child_name = reader_2.GetString(4);
-                                s.id_main_task = Int32.Parse(reader_2.GetString(5));
-                                t.associatedTasks.Add(s);
+                                var commandd = connectionn.CreateCommand();
+                                commandd.CommandText = @"SELECT * FROM Second_task WHERE id_main_task = $id_main_task;";
+                                commandd.Parameters.AddWithValue("$id_main_task", t.id);
+                                using (var readerr = commandd.ExecuteReader())
+                                {
+                                    while (readerr.Read())
+                                    {
+                                        var s = new SecondTask();
+                                        s.id = Int32.Parse(reader.GetString(0));
+                                        s.text = reader.GetString(1);
+                                        s.start = Int32.Parse(reader.GetString(2));
+                                        s.end = Int32.Parse(reader.GetString(3));
+                                        s.child_name = reader.GetString(4);
+                                        //s.id_main_task = Int32.Parse(reader.GetString(5));
+                                        t.associatedTasks.Add(s);
+                                    }
+                                }
                             }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("No element in DB with this id_main_task");
+                            }
+                            connectionn.Close();
                         }
-
                         array_tasks.Add(t);
-                    }
+                    }   
+                    
+                 
                 }
+            connection.Close();
             }
+                    
             return Ok(array_tasks);
-        }
 
+        }
 
         [HttpPost("delete")]
         public ActionResult<string> Delete_class(MainTask main_task_received)
@@ -78,7 +91,7 @@ namespace netcoreBackend.Controllers
                 }
             }
             catch
-            {   
+            {
                 return NotFound();
             }
         }
