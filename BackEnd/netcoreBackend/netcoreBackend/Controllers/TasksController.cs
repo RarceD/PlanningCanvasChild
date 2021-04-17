@@ -51,7 +51,6 @@ namespace netcoreBackend.Controllers
                                         s.start = Int32.Parse(reader.GetString(2));
                                         s.end = Int32.Parse(reader.GetString(3));
                                         s.child_name = reader.GetString(4);
-                                        //s.id_main_task = Int32.Parse(reader.GetString(5));
                                         t.associatedTasks.Add(s);
                                     }
                                 }
@@ -63,13 +62,13 @@ namespace netcoreBackend.Controllers
                             connectionn.Close();
                         }
                         array_tasks.Add(t);
-                    }   
-                    
-                 
+                    }
+
+
                 }
-            connection.Close();
+                connection.Close();
             }
-                    
+
             return Ok(array_tasks);
 
         }
@@ -82,12 +81,17 @@ namespace netcoreBackend.Controllers
                 using (var connection = new SqliteConnection("Data Source=DB/Database.db"))
                 {
                     connection.Open();
+                    //First I delete the second tasks associated:
                     var command = connection.CreateCommand();
-                    command.CommandText = @"DELETE FROM Main_task WHERE id=$id;";
-                    command.Parameters.AddWithValue("$id", main_task_received.id);
-                    List<MainTask> tasks = new List<MainTask>();
-                    var reader = command.ExecuteReader();
-                    return Ok("delete successfully");
+                    command.CommandText = "DELETE FROM Second_task WHERE id_main_task = $id_main_task;";
+                    command.Parameters.AddWithValue("$id_main_task", main_task_received.id);
+                    command.ExecuteReader();
+                    //First I delete the main tasks with the id provided:
+                    var command_2 = connection.CreateCommand();
+                    command_2.CommandText = @"DELETE FROM Main_task WHERE id=$id;";
+                    command_2.Parameters.AddWithValue("$id", main_task_received.id);
+                    command_2.ExecuteReader();
+                    return Ok("Successfully Deleted");
                 }
             }
             catch
@@ -115,13 +119,13 @@ namespace netcoreBackend.Controllers
                     for (int i = 0; i < number_second_task; i++)
                     {
                         var command_2 = connection.CreateCommand();
-                        command.CommandText = @"INSERT INTO Second_task ( text, start, end, child_name, id_main_task) VALUES ($text, $start, $end, $child_name, $id_main_task);";
-                        command.Parameters.AddWithValue("$text", main_task_received.associatedTasks[i].text);
-                        command.Parameters.AddWithValue("$start", main_task_received.associatedTasks[i].start);
-                        command.Parameters.AddWithValue("$end", main_task_received.associatedTasks[i].end);
-                        command.Parameters.AddWithValue("$child_name", main_task_received.associatedTasks[i].child_name);
-                        command.Parameters.AddWithValue("$id_main_task", main_task_received.associatedTasks[i].id_main_task);
-                        command.ExecuteReader();
+                        command_2.CommandText = @"INSERT INTO Second_task ( text, start, end, child_name, id_main_task) VALUES ($text, $start, $end, $child_name, $id_main_task);";
+                        command_2.Parameters.AddWithValue("$text", main_task_received.associatedTasks[i].text);
+                        command_2.Parameters.AddWithValue("$start", main_task_received.associatedTasks[i].start);
+                        command_2.Parameters.AddWithValue("$end", main_task_received.associatedTasks[i].end);
+                        command_2.Parameters.AddWithValue("$child_name", main_task_received.associatedTasks[i].child_name);
+                        command_2.Parameters.AddWithValue("$id_main_task", main_task_received.associatedTasks[i].id_main_task);
+                        command_2.ExecuteReader();
                     }
                     return Ok("Add successfully");
                 }
