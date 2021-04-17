@@ -8,12 +8,22 @@
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="success" (click)="showAddTaskModal()"
+        ><ion-icon name="add"></ion-icon
+      ></ion-fab-button>
+      <ion-fab-button color="danger"(click)="showRemoveButton()"
+        ><ion-icon name="trash-outline"></ion-icon
+      ></ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
+
+  <!-- <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button routerLink="/groups">
       <ion-icon name="arrow-back"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    </ion-fab-button> -->
+
+  <!-- </ion-fab> -->
   <ion-card>
     <!-- <ion-row style="border-bottom: groove">
         <ion-col size="3"> ><ion-button> Tasks in Schedule </ion-button></ion-col>
@@ -26,7 +36,7 @@
     <ul *ngFor="let t of tasks; index as i;">
       <ion-row class="ion-align-items-center" style="border-top: groove">
         <ion-col size="3">
-          <ion-button *ngIf="i>0" color="light" (click)="showMoreTasks(t)">
+          <ion-button *ngIf="i>0" color="{{calendarButtonColor}}" (click)="showMoreTasks(t)">
             <ion-icon name="calendar"></ion-icon>
           </ion-button>
           <ion-label color="dark"><b>{{t.text}}</b> </ion-label>

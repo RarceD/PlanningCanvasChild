@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Create a new task</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label> Introduce the main task: </ion-label>
+  </ion-item>
+  <ion-input [(ngModel)]="task.text" placeholder="Enter task name"></ion-input>
+  <ion-row>
+    <ion-col>
+      <ion-input [(ngModel)]="task.start" placeholder="Start day"></ion-input>
+    </ion-col>
+    <ion-col>
+      <ion-input [(ngModel)]="task.end" placeholder="End task"></ion-input>
+    </ion-col>
+  </ion-row>
+  <ion-item>
+    <ion-label> Introduce the second tasks: </ion-label>
+  </ion-item>
+  <ion-input
+    [(ngModel)]="secondTask.text"
+    placeholder="Enter second task name"
+  ></ion-input>
+  <ion-input
+    [(ngModel)]="secondTask.child_name"
+    placeholder="Child name"
+  ></ion-input>
+  <ion-row>
+    <ion-col>
+      <ion-input
+        [(ngModel)]="secondTask.start"
+        placeholder="Start day"
+      ></ion-input>
+    </ion-col>
+    <ion-col>
+      <ion-input
+        [(ngModel)]="secondTask.end"
+        placeholder="End task"
+      ></ion-input>
+    </ion-col>
+  </ion-row>
+  <ion-button expand="full" (click)="addSecondTasks()" color="medium"
+    >Add second tasks
+  </ion-button>
+  <ion-item>
+    <ion-label> Second task associated to the main </ion-label>
+  </ion-item>
+  <ul *ngFor="let t of task.associatedTasks">
+    <ion-item>
+      <ion-label class="ion-text-wrap"> {{t.text}} </ion-label>
+      <ion-col> Start: {{t.start}} </ion-col>
+      <ion-col> End: {{t.end}} </ion-col>
+      <ion-note>{{t.child_name}} </ion-note>
+      <ion-button (click)="removeSecondTask(t)" color="danger"> X </ion-button>
+    </ion-item>
+  </ul>
+  <section>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" color="success" (click)="dismiss(true)"
+          >Save new task</ion-button
+        >
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" color="danger" (click)="dismiss(false)"
+          >Close editing task
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </section>
+</ion-content>

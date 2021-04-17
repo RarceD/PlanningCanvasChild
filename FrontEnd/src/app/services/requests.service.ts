@@ -1,3 +1,4 @@
+import { TasksMain } from './../interfaces/tasks';
 import { Classes } from './../interfaces/classes';
 import { Groups } from 'src/app/interfaces/groups';
 import { Injectable } from '@angular/core';
@@ -10,8 +11,8 @@ export class RequestsService {
   constructor(private http: HttpClient) { }
 
   //I get the groups from DB:
-  // public urlGet = "https://localhost:5002";
-  public urlGet = "https://81.46.227.112:5002";
+  public urlGet = "https://localhost:5002";
+  // public urlGet = "https://81.46.227.112:5002";
 
   getClass() {
     let url = this.urlGet + "/classes";
@@ -24,7 +25,6 @@ export class RequestsService {
     else
       url += "/delete";
     this.http.post<any>(url, postData).subscribe(data => {
-      // console.log(data);
     })
   }
   getGroups() {
@@ -36,7 +36,20 @@ export class RequestsService {
     if (add)
       url += "/add";
     else
-      url += "/delete";
+    url += "/delete";
+    console.log(url, postData);
+    this.http.post<any>(url, postData).subscribe();
+  }
+  getTasks() {
+    let url = this.urlGet + "/tasks";
+    return this.http.get<TasksMain[]>(url);
+  }
+  modifiedTasks(postData: TasksMain, add: boolean) {
+    let url = this.urlGet+ "/tasks";
+    if (add)
+      url += "/add";
+    else
+    url += "/delete";
     console.log(url, postData);
     this.http.post<any>(url, postData).subscribe();
   }

@@ -5,17 +5,18 @@ export interface TasksMain {
   text: string,
   start: number,
   end?: number,
-  status?: TaskStatus,
+  status?: number,
   associatedTasks?: TaskSecond[],
   expanded?: boolean
 }
 
 export interface TaskSecond {
-  start?: number,
+  id?: number,
   text: string
-  childAsociated?: string,
-  color?: string,
-  deadline?: Object
+  start?: number,
+  end?: number,
+  child_name?: string,
+  id_main_task?: number,
 }
 
 export interface Children{
