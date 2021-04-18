@@ -115,7 +115,6 @@ namespace netcoreBackend.Controllers
                     command.Parameters.AddWithValue("$status", main_task_received.status);
                     command.ExecuteReader();
                     int number_second_task = main_task_received.associatedTasks.Count;
-                    Console.WriteLine(number_second_task);
                     for (int i = 0; i < number_second_task; i++)
                     {
                         var command_2 = connection.CreateCommand();
@@ -127,7 +126,7 @@ namespace netcoreBackend.Controllers
                         command_2.Parameters.AddWithValue("$id_main_task", main_task_received.associatedTasks[i].id_main_task);
                         command_2.ExecuteReader();
                     }
-                    return Ok("Add successfully");
+                    return Ok("Successfully added");
                 }
             }
             catch

@@ -11,8 +11,8 @@ export class RequestsService {
   constructor(private http: HttpClient) { }
 
   //I get the groups from DB:
-  public urlGet = "https://localhost:5002";
-  // public urlGet = "https://81.46.227.112:5002";
+  // public urlGet = "https://localhost:5002";
+  public urlGet = "https://81.46.227.112:5002";
 
   getClass() {
     let url = this.urlGet + "/classes";
